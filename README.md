@@ -1,21 +1,19 @@
-# Supercar 
 
-This proejct is about stearing cars with your head and head tilt. Hopefully we will be able to use Head tracking for the data but at the present we have the nose-data in the project folder. 
+The following godot limitations exist since the games will be exported as pcks and included as dlc-projects in the Liopep Client which is the game portal for these projects. This means that some things dont exist. 
 
-Like all these projects they have a set of requirements.
 
-Use thems in design. They are form the outer project, often called teh client, which is the "game" portal where this game will be together with other games. 
-Game are there stareted by and outer game project so that this project will later be exported and started as a PCK which is the Godot format for game mods or extensions DLC packs. 
 
-Proejct cannot depend on AutoLoad or ProjectSettings files for its operations since these will be set fomr the get go in the "client" 
-In this projects I've added a few AutoLoad-scripts that will be replaced by others in the client with the same name. This includes the important GameLoader which handled boht loading data, storing temporary data and delivering session data to the outer client for storage in the backend. 
+* Projects cannot use on AutoLoad or ProjectSettings for its operations since these will be set fomr the get go in the "client". 
+* Game size is 1920*1080 and window-scalling 2D and keep. 
+* The game Client will start and stop the projects using the start_game and back_to_client
+
+In this projects I've added a few AutoLoad-scripts that will be replaced by others AutoLoaders in the client with the same name. This includes the important GameLoader which handled both loading data, storing temporary data in. a temp_data dictionary and functions to add the session_data results including game-settings for things like level and so forth. 
+
+Games such follow the following conventions. The name should be the proejct name which should be the scene of the game in the root folder, then the same name on the folder and all other resources in the game should use this name. E.g. starter.tcsn with a folder starter and then data can be saved to user://starter. this acts like a namespace, and the folder where all resources should be added. 
+
+In the design-folder there are teames for Controls/UI. USe those, in particular the main_theam and the component_theame. 
 
 To be able to test the game you need to add Export option for HTML5 and build *outside of the repo* so that build files are not accedentally added tot he git repo. The project contains a custom html-file for starting models which currently uses pose but we will replace that with the head tracking. 
 
-Alos, the game need to start with an instruction page, run with a game timer that takes 2 minuted before ending and that is here part of the file system in place. Adding to this works, but that is the startup and end process of the games. 
+Also, the game need to start with an instruction page, run with a game timer that takes 2 minuted before ending and that is here part of the file system in place. Game-time is forced by the game-loader and currently the timer is in the games but in the fugure the game-timer will be moved to the Client.  
 
-In the game SuperCar the intention is to do a 2D-top-dowbn car-racing game for game tracks where head is used to stear the cars. The plan is hopefully to also use HeadTracking and enable multiple players. They can the play together and tilt their head and move head up and down to control speed ... something like this. The multiplayer part is an experiment and the single-player exprience is the one to focus mostly on. 
-
-Teh car racing should be about following a track and turning by tilting the head and doing squats to "break" the speed before going full throttel again. This is something to discuss because it will clearly affect teh game. 
-
-For assets I think this is a very good starting point. https://www.kenney.nl/assets/racing-pack
