@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://lp_starting/design/current/component_theme_alt.tres" type="Theme" id=2]
+[ext_resource path="res://lp_starting/QuitButton.gd" type="Script" id=3]
+[ext_resource path="res://lp_starting/back/BackButton.tscn" type="PackedScene" id=5]
+[ext_resource path="res://lp_starting/design/current/fonts/label_font.tres" type="DynamicFont" id=6]
+
+[node name="backbuttonlayer" type="CanvasLayer"]
+layer = 2
+
+[node name="BackButton" parent="." instance=ExtResource( 5 )]
+
+[node name="QuitButton" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -276.0
+margin_top = -153.0
+margin_right = 335.0
+margin_bottom = -60.0
+theme = ExtResource( 2 )
+custom_fonts/font = ExtResource( 6 )
+text = "QUIT"
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

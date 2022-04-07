@@ -1,0 +1,158 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://lp_starting/ColorRect.gd" type="Script" id=1]
+[ext_resource path="res://lp_starting/assets/instructions/both_down.v2.png" type="Texture" id=2]
+[ext_resource path="res://lp_starting/design/current/main_theme.tres" type="Theme" id=3]
+[ext_resource path="res://lp_starting/design/current/fonts/label_font.tres" type="DynamicFont" id=4]
+[ext_resource path="res://lp_starting/instruction_control.gd" type="Script" id=5]
+[ext_resource path="res://lp_starting/design/current/component_theme.tres" type="Theme" id=6]
+[ext_resource path="res://lp_starting/design/current/fonts/header_font.tres" type="DynamicFont" id=7]
+[ext_resource path="res://lp_starting/assets/instructions/distance.v2.png" type="Texture" id=8]
+[ext_resource path="res://lp_starting/assets/instructions/both_up.v2.png" type="Texture" id=9]
+[ext_resource path="res://lp_starting/assets/instructions/arrow-forward.svg" type="Texture" id=10]
+
+[node name="Instructions" type="CanvasLayer"]
+
+[node name="instruction_control" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 6 )
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="instruction_control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 3 )
+color = Color( 0.898039, 0.898039, 0.898039, 1 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="stear_ship" type="Label" parent="instruction_control"]
+margin_left = 760.0
+margin_top = 109.0
+margin_right = 1134.0
+margin_bottom = 158.0
+theme = ExtResource( 6 )
+custom_fonts/font = ExtResource( 7 )
+text = "INSTR_STEAR"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="shoot" type="Label" parent="instruction_control"]
+margin_left = 1351.0
+margin_top = 109.0
+margin_right = 1791.0
+margin_bottom = 158.0
+theme = ExtResource( 6 )
+custom_fonts/font = ExtResource( 7 )
+text = "INSTR_SHOOT"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="stand_up" type="Label" parent="instruction_control"]
+margin_left = 84.0
+margin_top = 793.0
+margin_right = 541.0
+margin_bottom = 844.0
+theme = ExtResource( 3 )
+custom_fonts/font = ExtResource( 7 )
+text = "INSTR_STAND"
+align = 1
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="shoot_move" type="Label" parent="instruction_control"]
+margin_left = 1274.0
+margin_top = 802.0
+margin_right = 1872.0
+margin_bottom = 853.0
+theme = ExtResource( 3 )
+custom_fonts/font = ExtResource( 7 )
+text = "INSTR_SHOOT_MOVE"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="stear_move" type="Label" parent="instruction_control"]
+margin_left = 630.0
+margin_top = 800.0
+margin_right = 1224.0
+margin_bottom = 851.0
+theme = ExtResource( 3 )
+custom_fonts/font = ExtResource( 7 )
+text = "INSTR_STEAR_MOVE"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BothUp" type="Sprite" parent="instruction_control"]
+position = Vector2( 1582, 500 )
+scale = Vector2( 1.1, 1.1 )
+texture = ExtResource( 9 )
+
+[node name="DistanceToSceren" type="Sprite" parent="instruction_control"]
+position = Vector2( 334, 510 )
+scale = Vector2( 0.852959, 0.902313 )
+texture = ExtResource( 8 )
+
+[node name="Move" type="Sprite" parent="instruction_control"]
+position = Vector2( 943, 497 )
+scale = Vector2( 1.1, 1.1 )
+texture = ExtResource( 2 )
+
+[node name="Arrow-forward" type="Sprite" parent="instruction_control/Move"]
+position = Vector2( 142.761, 41.616 )
+scale = Vector2( 0.373117, 0.373117 )
+texture = ExtResource( 10 )
+
+[node name="Arrow-forward2" type="Sprite" parent="instruction_control/Move"]
+position = Vector2( -145.521, 41.616 )
+rotation = 3.14159
+scale = Vector2( 0.373117, 0.373117 )
+texture = ExtResource( 10 )
+
+[node name="loading" type="Label" parent="instruction_control"]
+margin_left = 57.0
+margin_top = 945.0
+margin_right = 1877.0
+margin_bottom = 994.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "WARNING_START"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="instruction_control"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -276.0
+margin_top = -153.0
+margin_right = 335.0
+margin_bottom = -60.0
+custom_fonts/font = ExtResource( 4 )
+text = "START"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="instruction_control/Button" to="instruction_control" method="_on_Button_pressed"]

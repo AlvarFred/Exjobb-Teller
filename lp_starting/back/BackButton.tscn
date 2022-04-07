@@ -1,0 +1,27 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://lp_starting/back/BackButton.gd" type="Script" id=1]
+[ext_resource path="res://lp_starting/back/pressed.png" type="Texture" id=2]
+[ext_resource path="res://lp_starting/back/disabled.png" type="Texture" id=3]
+[ext_resource path="res://lp_starting/back/normal.png" type="Texture" id=4]
+[ext_resource path="res://lp_starting/back/hoover.png" type="Texture" id=5]
+
+[sub_resource type="Theme" id=1]
+
+[node name="TextureButton" type="TextureButton"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 30.0
+margin_top = -124.0
+margin_right = 464.0
+margin_bottom = 316.0
+rect_scale = Vector2( 0.25, 0.25 )
+theme = SubResource( 1 )
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 2 )
+texture_hover = ExtResource( 5 )
+texture_disabled = ExtResource( 3 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

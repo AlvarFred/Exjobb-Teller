@@ -1,0 +1,19 @@
+keys,en,sv
+WARNING_START,Loading game...,Laddar in spel...
+WARNING_CLOSE,You're standing too close to the camera! Move back a little bit.,Du står för nära kameran! Flytta dig lite bakåt.
+WARNING_EDGE,Moving out of the camera's view! Stand closer to the middle.,Du rör dig ut ur kamerans synfält! Stå närmare mitten.
+HIGH_SCORE,High Score,Highscore
+SCORE,Score,Poäng
+ENEMIES_SHOT,Enemies shot,Skjutna fiender
+COINS_COLLECTED,Coins collected,Insamlade mynt
+SURVIVED_TO_END,Survived to end,Överlevde till slutet
+QUIT_GAME,Quit,Avsluta
+NEW_MAP,New Map,Ny karta
+RESTART_MAP,Restart,Börja om
+NEXT_LEVEL_COUNTDOWN,Next level will begin in,Nästa bana börjar om 
+TIME_OUT,Time Out,Tiden slut
+INSTR_STAND,Stand to Play, Stå för att spela
+INSTR_STEAR,Stear Aircraft, Styr flygplan
+INSTR_STEAR_MOVE,Move Left/Right, Gå höger/vänster
+INSTR_SHOOT,Fire,Skjut
+INSTR_SHOOT_MOVE,Raise both arms,Lyft båda armarna 

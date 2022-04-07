@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=2]
+
+[sub_resource type="DynamicFontData" id=39]
+font_path = "res://starter/fonts/coin-font.ttf"
+
+[sub_resource type="DynamicFont" id=40]
+size = 60
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
+font_data = SubResource( 39 )
+
+[sub_resource type="GDScript" id=26]
+script/source = "extends Label
+
+onready var Signals = GameLoader.get_game_root().find_node(\"Signals\")
+onready var player = GameLoader.get_game_root().find_node(\"Player\")
+
+var startup = true
+
+func _ready():
+	# Remember where player was at the very beginning
+	Signals.connect(\"warning_changed\", self, \"_warning_changed\")
+
+func _process(delta):
+	# If the game is still in startup and player plane moves, leave startup and unpause game
+	if startup && !Signals.player_dead:
+#	if startup: # Use this instead of the above to debug in editor
+		startup = false
+		visible = false
+		_warning_changed(false, \"\")
+
+func _warning_changed(show, warning): 
+	text = warning
+	get_tree().paused = show
+	visible = show
+"
+
+[node name="Label2" type="Label"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -680.0
+margin_top = -351.0
+margin_right = 820.0
+margin_bottom = 49.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 40 )
+text = "Laddar in spel..."
+align = 1
+valign = 1
+autowrap = true
+script = SubResource( 26 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
