@@ -1,11 +1,11 @@
-
 The following godot limitations exist since the games will be exported as pcks and included as dlc-projects in the Liopep Client which is the game portal for these projects. This means that some things dont exist. 
 
 * Projects cannot use on AutoLoad or ProjectSettings for its operations since these will be set fomr the get go in the "client". 
 * Game size is 1920*1080 and window-scalling 2D and keep. 
 * The game Client will start and stop the projects using the start_game and back_to_client. 
-* GameTime is managed by the GameLoader and uses now 120 minutes. This varable can be changed in the game for testing. In the. client the clients settings will override. 
+* GameTime is managed by the GameLoader and uses now 120 seconds, e.g. 2 minutes. This varable can be changed in the game for testing. In the. client the clients settings will override. 
 * Dont use get_tree().paused in game projects 
+* Dont activate vsyn and keep the force fps 30 or at a maximum forcing to 60.
 
 In this projects I've added a few AutoLoad-scripts that will be replaced by others AutoLoaders in the client with the same name. This includes the important GameLoader which handled both loading data, storing temporary data in. a temp_data dictionary and functions to add the session_data results including game-settings for things like level and so forth. 
 
