@@ -8,15 +8,11 @@ func _ready():
 	visible = false
 	
 func _on_quit_pressed():
-	disabled = true
-	TranslationServer.remove_translation(load("res://space_shooter/translations.en.translation"))
-	TranslationServer.remove_translation(load("res://space_shooter/translations.sv.translation"))
-	
-	GameLoader.add_score(GameLoader.temp_data.best_score)
-	var game_data = {}
-	game_data.top = 12 
-	GameLoader.replace_game_data(game_data)
+	visible = false
+	TranslationServer.remove_translation(load("res://lp_starting/translations.en.translation"))
+	TranslationServer.remove_translation(load("res://lp_starting/translations.sv.translation"))
 	GameLoader.back_to_client()
+	disabled = true
 	
 func _on_game_timeout():
 	visible = true

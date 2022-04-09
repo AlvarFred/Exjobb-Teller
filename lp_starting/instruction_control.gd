@@ -6,7 +6,7 @@ onready var moveworld = GameLoader.get_game_root().find_node("MoveWorld")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if GameLoader.temp_data.first_time: 
+	if GameLoader.first_time: 
 		visible = true
 		$Button.visible = false
 	else: 
