@@ -6,6 +6,7 @@ The following godot limitations exist since the games will be exported as pcks a
 * GameTime is managed by the GameLoader and uses now 120 seconds, e.g. 2 minutes. This varable can be changed in the game for testing. In the. client the clients settings will override. 
 * Dont use get_tree().paused in game projects 
 * Dont activate vsyn and keep the force fps 30 or at a maximum forcing to 60.
+* never use this from godot ... yield(get_tree().create_timer(2), "timeout") ... this global timer can be globally timedout form and therefore behaves strangelly in any game but also in the client_portal  
 
 In this projects I've added a few AutoLoad-scripts that will be replaced by others AutoLoaders in the client with the same name. This includes the important GameLoader which handled both loading data, storing temporary data in. a temp_data dictionary and functions to add the session_data results including game-settings for things like level and so forth. 
 
