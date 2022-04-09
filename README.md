@@ -7,8 +7,7 @@ The following godot limitations exist since the games will be exported as pcks a
 * Dont use get_tree().paused in game projects 
 * Dont activate vsyn and keep the force fps 30 or at a maximum forcing to 60.
 * never use this from godot ... yield(get_tree().create_timer(2), "timeout") ... this global timer can be globally timedout form and therefore behaves strangelly in any game but also in the client_portal  
-* if Config.iamwhere != "main": # Safe way to print in development that is now active on the deplyed version. The varable iamwhere will be main on the client_portal but "local" here. Printing of data can then be made for development. Dont check on loca, beacsue we also run games on a different setup which is more like the real enviroment for development and QA with the client_portal   
-
+* In GameLoader the function am_i_live() will return false when on development platform. Use to block/enable printing messages and to block interaktion from keys to test game with key istead of playing with your body.
 
 
 In this projects I've added a few AutoLoad-scripts that will be replaced by others AutoLoaders in the client with the same name. This includes the important GameLoader which handled both loading data, storing temporary data in. a temp_data dictionary and functions to add the session_data results including game-settings for things like level and so forth. 
