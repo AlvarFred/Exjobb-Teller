@@ -4,12 +4,7 @@
 <head>
 	<meta charset='utf-8' />
 	<meta name='viewport' content='width=device-width, user-scalable=no' />
-	<title>Liopep</title>
-	<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js" crossorigin="anonymous"></script>
-	<!-- <script type="text/javascript" src="../js/auth.js"></script>
-	<script type="text/javascript" src="website/js/auth.js"></script> -->
-	<style type='text/css'>
+	<title>Teller</title>	<style type='text/css'>
 
 		body {
 			touch-action: none;
@@ -18,7 +13,6 @@
 			padding: 0;
 			text-align: center;
 			background-color: #efefef;
-			background-image: url("https://images.pexels.com/photos/7276723/pexels-photo-7276723.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
 			background-repeat: no-repeat;
 			background-position: center;
 			background-attachment: fixed;
@@ -160,10 +154,9 @@ $GODOT_HEAD_INCLUDE
 	<script type='text/javascript'>//<![CDATA[
 
 const GODOT_CONFIG=$GODOT_CONFIG;var engine=new Engine(GODOT_CONFIG);!function(){const e=800;var t=document.getElementById("status-progress"),n=document.getElementById("status-progress-inner"),r=document.getElementById("status-indeterminate"),o=document.getElementById("status-notice"),a=!0,i="hidden",s=[];function l(e){if(i!==e&&a){switch([t,r,o].forEach(e=>{e.style.display="none"}),s=s.filter(function(e){return e!=d}),e){case"progress":t.style.display="block";break;case"indeterminate":r.style.display="block",s.push(d);break;case"notice":o.style.display="block";break;case"hidden":break;default:throw new Error("Invalid status mode")}i=e}}function d(t){var n=Math.floor(t/e%8);""==r.children[n].style.borderTopColor&&(Array.prototype.slice.call(r.children).forEach(e=>{e.style.borderTopColor=""}),r.children[n].style.borderTopColor="#dfdfdf")}function c(e){var t=e.message||e;console.error(t),function(e){for(;o.lastChild;)o.removeChild(o.lastChild);e.split("\n").forEach(e=>{o.appendChild(document.createTextNode(e)),o.appendChild(document.createElement("br"))})}(t),l("notice"),a=!1}(requestAnimationFrame(function e(t){s.forEach(e=>e(t)),requestAnimationFrame(e)}),Engine.isWebGLAvailable())?(l("indeterminate"),canvas.getContext("webgl").clearColor(0,0,0,0),engine.startGame({onProgress:function(e,t){t>0?(n.style.width=e/t*100+"%",l("progress"),e===t&&setTimeout(()=>{l("indeterminate")},500)):l("indeterminate")}}).then(()=>{l("hidden"),a=!1},c)):c("WebGL not available")}();		</script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js" crossorigin="anonymous"></script>
-<script type="module">	
-const liopep_sensor=new Pose({locateFile:e=>`https://cdn.jsdelivr.net/npm/@mediapipe/pose/${e}`});liopep_sensor.setOptions({selfieMode:"flip_horizontal",modelComplexity:1,smoothLandmarks:!1,enableSegmentation:!1,smoothSegmentation:!1,minDetectionConfidence:.3,minTrackingConfidence:.3});const no_result="";function onResults(e){e.poseLandmarks?window.results=JSON.stringify(e.poseLandmarks):window.results=no_result}window.results=no_result;const videoElement=document.getElementsByClassName("input_video")[0];if(window.videoElement=videoElement,!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia)throw new Error("Browser API navigator.mediaDevices.getUserMedia not available");const videoConfig={audio:!1,video:{facingMode:"user",width:640,height:480}};navigator.mediaDevices.getUserMedia(videoConfig).then(function(e){videoElement.srcObject=e}).catch(function(e){console.log(e)}),liopep_sensor.onResults(onResults);const camera=new Camera(videoElement,{onFrame:async()=>{await liopep_sensor.send({image:videoElement})},width:640,height:480});window.camera=camera,camera.start();
+<script>	
+/* Here you can write functions and data to acceess and work with webspeech so that it can also be accessed from Godot. 
+*/ 
 
 	</script>
 	</body>

@@ -10,15 +10,9 @@ config_version=4
 
 [application]
 
-config/name="starter"
-run/main_scene="res://lp_starting.tscn"
+config/name="Teller"
+run/main_scene="res://teller.tscn"
 run/low_processor_mode=true
-config/icon="res://starter/assets/kenney_pixelshmup/Ships/ship_0002.png"
-
-[autoload]
-
-GameLoader="*res://lp_starting/gameloader.gd"
-ThemeColor="*res://lp_starting/design/current/theme_color.gd"
 
 [debug]
 

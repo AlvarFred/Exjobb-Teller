@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://teller.gd" type="Script" id=5]
+
+[sub_resource type="Environment" id=43]
+background_mode = 4
+glow_intensity = 1.48
+glow_strength = 1.19
+glow_bloom = 0.03
+adjustment_enabled = true
+adjustment_brightness = 0.8
+adjustment_contrast = 1.2
+
+[node name="top_node" type="Node2D"]
+pause_mode = 2
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_horizontal_guides_": [ -96.0, -3535.0 ],
+"_edit_vertical_guides_": [ -698.0, -1549.0 ]
+}
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 43 )
