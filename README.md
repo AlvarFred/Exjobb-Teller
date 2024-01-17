@@ -1,15 +1,9 @@
 Teller
 
-A project on using godot game with webspeech for speech input into an interactive reading exrpeince where speech is used as input for a listening companion to partake and augment reading stories outload. 
-
-Integration of speech as input to the system enable reading to bedetected using HTML5 webspeech API but also to trigger the activation of images, animations, ambinet audio, controll visual effects and in other wasy make the reading experience more engaging. 
-
-Design for compesating for the speed whith which the webspeech API can recognize words and phrases are part of the design challengen and how to achiece a user experinece where the user does not preceive that the application is slow and faulty. 
-
-Evaluating the preceived accuracy and preveiced lagg/slow recognition is the key evaluation. This not for the webspeechs recognition but for the entire system that might compensate by using effects and other triggers that trigger on partial regognition or low recognition presentages and by activelly keeping the app living and animating when speech is active but still not perhaps accurate enough to trigger all inetended events. 
-
-Also, the applicaiotn uses established stories so recognition-percentage can be callclualted.  
+A project on using Mobile First Web, AMP, development wiht a Firebase as backend to facilitate individuals to do positive selftalk to improve thier resiliance and give themselves a boost from speeking outload pre-defined messages. The app uses webspeech to recognize that the desired messages has been spoken outloud and provide a sequence of messages top tell oneself and also show art and images to boost the feeling and use confetti and audiop feedback to underline the positive feeling associated with speaking out, though this also may need to be able to be muted. 
 
 
-Add here reference to the work. 
+The Web App should be developed for downloading and using sequences of messages registered with a particular user that manages the messages and can also follow statistics. Individual users should have streaks and statistics about when during the day and notifications/reminders for daily messagens. Also, users should be able to form groups of users for supporting oneanother. 
+
+The mobile app should be intended to be a App installed on the phone usine things like Capacitor, but initally we will manage the app development using only the web. A Firebase app will also be added to the project.  
 
