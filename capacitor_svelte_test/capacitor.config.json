@@ -1,0 +1,8 @@
+{
+  "appId": "com.example.app",
+  "appName": "capacitor_svelte_test",
+  "webDir": "build",
+  "server": {
+    "androidScheme": "https"
+  }
+}
