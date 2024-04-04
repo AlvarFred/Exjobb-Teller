@@ -7,3 +7,9 @@ The Web App should be developed for downloading and using sequences of messages 
 
 The mobile app should be intended to be a App installed on the phone usine things like Capacitor, but initally we will manage the app development using only the web. A Firebase app will also be added to the project.  
 
+
+### Start debug
+npm run build
+npx cap sync
+npx cap open android
+

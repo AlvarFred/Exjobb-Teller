@@ -1,15 +1,12 @@
 <script>
-
+  import "../app.css";
+  import {App} from "konsta/svelte"
 </script>
 
-<div class="app">
-	
-	hello hello
-	<slot></slot>
-</div>
+<App theme="material">
+    <slot />
+</App>
 
 <style>
-	div{
-
-	}
+	
 </style>
