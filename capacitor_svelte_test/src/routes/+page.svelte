@@ -1,6 +1,9 @@
 <script>
-	export const prerender = true;
 	import { Camera } from '@capacitor/camera';
+  import {
+    Page,
+    Button
+  } from 'konsta/svelte'
 	const takePhoto = async ()=>{
 		try {
           const photo = await Camera.getPhoto({
@@ -18,10 +21,11 @@
         }
 	}
 </script>
+<Page>
 
-<h1>HEJ</h1>
-<button on:click={takePhoto}>Click</button>
-<a href="/ingame">CLICK</a>
+  <h1>HEJ</h1>
+  <a href="/ingame"><Button>Start</Button></a>
+</Page>
 
 
 <style>
