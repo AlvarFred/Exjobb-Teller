@@ -8,6 +8,15 @@
         Card, 
         Progressbar,
         Button,
+        Navbar, 
+        NavbarBackLink,
+        Block,
+
+		BlockHeader,
+
+		BlockFooter
+
+
     } from 'konsta/svelte'
     onMount(() =>{
         SpeechRecognition.addListener("partialResults", (data) => {
@@ -41,32 +50,45 @@
         }
     }
     const step = ()=>{
-        progress+=0.1;
+        progress+=1;
+        if(progress == totalAffirmations){
+            done = true;
+        }
     }
     let text = "nothi" 
-    const dummyData = {
-        affirmation: "i am so good like the best and stuff its crazy how good i am like just wow",
+    const dummyData = [{
+        affirmation: " The first. I am so good like the best and stuff its crazy how good i am like just wow",
         img: ""
-    }
+    },
+    {affirmation: "The second affirmation, now i am supposed to say somthing good about myself",
+        img: ""},
+        {affirmation: "The third affirmation, this one is really hard",
+        img: ""}
+]
     let progress = 0;
+    let totalAffirmations = dummyData.length;
+    let done = false;
 </script>
 
-<Page class="flex items-center flex-col bg-white">
-    <h1>ingame</h1>
-    <p>{text}</p>
-    <Card raised class="bg-red-200">
-        Hello, please say something good about yourself
+<Page class="  bg-white">
+    <Navbar transparent>
+        <NavbarBackLink slot="left" text="Back" onClick={() => history.back()} />
+    </Navbar>
+
+    <Card raised >
+        <p class="text-2xl">{dummyData[progress].affirmation}</p>
     </Card>
-    <Card class="bg-red-200">
-        Not raised in this card lol
-    </Card>
-    <Fab class="rounded-full" onClick={start}>
-        <img alt="microphone" slot="icon" src={micIcon}/>
-    </Fab>
-    <Button onClick={step}>Skip</Button>
+
+   
+    <Block class="w-full absolute bottom-0 ">
+        <Fab class="rounded-full mx-auto" onClick={start}>
+            <img alt="microphone" slot="icon" src={micIcon}/>
+        </Fab>
     
-    <Progressbar class="min-h-2 w-96 self-end " {progress}/>
+        <Button  class="max-w-[64px] mx-auto my-16"  onClick={step}>Skip</Button>
     
+        <Progressbar class="" progress={progress/totalAffirmations}/>
+    </Block>
 </Page>
 
 <style>
