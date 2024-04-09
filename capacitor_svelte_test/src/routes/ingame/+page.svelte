@@ -19,6 +19,23 @@
 			text = data.matches[0];
 			console.log('partialResults was fired', data.matches);
 		});
+        SpeechRecognition.addListener('listeningState', (data)=>{
+            if(data.status == 'stopped'){
+                console.log('###########################\ngot: ', text, '\nwas: ', dummyData[progress].affirmation)
+                const wer = wordErrorRate(text.toLocaleLowerCase(), dummyData[progress].affirmation.toLocaleLowerCase());
+
+			if (wer > allowedWER) {
+				//fail
+				console.log('Failed: WER = ', wer, ' > allowed = ', allowedWER);
+				// TODO: Show user that speech recognition failed
+			} else {
+				//success
+				console.log('Success: WER = ', wer, ' < allowed = ', allowedWER);
+				// TODO: Do some cool animation to show user speech recognition succeeded
+				step();
+			}
+            }
+        })
 	});
 	const start = async () => {
 		if (await SpeechRecognition.available()) {
@@ -35,29 +52,20 @@
 				partialResults: true,
 				popup: false
 			});
-			while (SpeechRecognition.isListening()) {}
-			// Done listening
-			const wer = wordErrorRate(text, dummyData[progress].affirmation);
 
-			if (wer > allowedWER) {
-				//fail
-				console.log('Failed: WER = ', wer, ' > allowed = ', allowedWER);
-				// TODO: Show user that speech recognition failed
-			} else {
-				//success
-				console.log('Success: WER = ', wer, ' < allowed = ', allowedWER);
-				// TODO: Do some cool animation to show user speech recognition succeeded
-				step();
-			}
 		} else {
 			alert('Speech recognition is not available');
 		}
 	};
+   
+
 	const wordErrorRate = (hypothesis, reference) => {
 		// Tokenize the strings into words
-		const hypothesisWords = hypothesis.trim().split(/\s+/);
-		const referenceWords = reference.trim().split(/\s+/);
-
+		// Remove special characters and whitespace
+		const hypothesisWords = hypothesis.trim().split(/\s+/).map((x)=>x.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''));
+		const referenceWords = reference.trim().split(/\s+/).map((x)=>x.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''));;
+        console.log(hypothesisWords)
+        console.log(referenceWords)
 		// Initialize matrix for dynamic programming
 		const dp = [];
 		for (let i = 0; i <= hypothesisWords.length; i++) {
