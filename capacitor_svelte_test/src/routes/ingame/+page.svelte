@@ -14,6 +14,8 @@
 		BlockHeader,
 		BlockFooter
 	} from 'konsta/svelte';
+	import {logData} from '$lib/logData.js';
+
 	onMount(() => {
 		SpeechRecognition.addListener('partialResults', (data) => {
 			text = data.matches[0];
@@ -23,6 +25,18 @@
             if(data.status == 'stopped'){
                 console.log('###########################\ngot: ', text, '\nwas: ', dummyData[progress].affirmation)
                 const wer = wordErrorRate(text.toLocaleLowerCase(), dummyData[progress].affirmation.toLocaleLowerCase());
+
+                // Log data
+                const status = wer < allowedWER;
+                const jsonData = JSON.stringify({
+                    "success": status, 
+                    "wer": wer, 
+                    "allowedWER": allowedWER, 
+                    "original-sentence": dummyData[progress].affirmation,
+                    "received-sentence": text
+                })
+                console.log("###################", jsonData)
+                logData(jsonData)
 
 			if (wer > allowedWER) {
 				//fail
