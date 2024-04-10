@@ -2,6 +2,8 @@
 	import { SpeechRecognition } from '@capacitor-community/speech-recognition';
 	import { onMount } from 'svelte';
 	import micIcon from '$lib/assets/mic.svg';
+	import {wordErrorRate} from '$lib/wer.js'
+	import nature from '$lib/assets/nature.jpg'
 	import {
 		Page,
 		Fab,
@@ -14,6 +16,26 @@
 		BlockHeader,
 		BlockFooter
 	} from 'konsta/svelte';
+
+	const dummyData = [
+		{
+			affirmation:
+				' The first. I am so good like the best and stuff its crazy how good i am like just wow',
+			img: ''
+		},
+		{
+			affirmation: 'The second affirmation, now i am supposed to say somthing good about myself',
+			img: ''
+		},
+		{ affirmation: 'The third affirmation, this one is really hard', img: '' }
+	];
+	const allowedWER = 0.3;
+	let text = '';
+	let progress = 0;
+	let totalAffirmations = dummyData.length;
+	let done = false;
+	let listening = false;
+
 	onMount(() => {
 		SpeechRecognition.addListener('partialResults', (data) => {
 			text = data.matches[0];
@@ -21,6 +43,7 @@
 		});
         SpeechRecognition.addListener('listeningState', (data)=>{
             if(data.status == 'stopped'){
+				listening = false;
                 console.log('###########################\ngot: ', text, '\nwas: ', dummyData[progress].affirmation)
                 const wer = wordErrorRate(text.toLocaleLowerCase(), dummyData[progress].affirmation.toLocaleLowerCase());
 
@@ -41,10 +64,10 @@
 		if (await SpeechRecognition.available()) {
 			console.log(await SpeechRecognition.checkPermissions());
 			if (await SpeechRecognition.checkPermissions()) await SpeechRecognition.checkPermissions();
-
+			
 			// if no permission
 			await SpeechRecognition.requestPermissions();
-
+			
 			SpeechRecognition.start({
 				language: 'en-US',
 				maxResults: 2,
@@ -52,47 +75,10 @@
 				partialResults: true,
 				popup: false
 			});
-
+			listening = true;
 		} else {
 			alert('Speech recognition is not available');
 		}
-	};
-   
-
-	const wordErrorRate = (hypothesis, reference) => {
-		// Tokenize the strings into words
-		// Remove special characters and whitespace
-		const hypothesisWords = hypothesis.trim().split(/\s+/).map((x)=>x.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''));
-		const referenceWords = reference.trim().split(/\s+/).map((x)=>x.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''));;
-        console.log(hypothesisWords)
-        console.log(referenceWords)
-		// Initialize matrix for dynamic programming
-		const dp = [];
-		for (let i = 0; i <= hypothesisWords.length; i++) {
-			dp[i] = [i];
-		}
-		for (let j = 1; j <= referenceWords.length; j++) {
-			dp[0][j] = j;
-		}
-
-		// Calculate edit distance using dynamic programming (Levenshtein distance)
-		for (let i = 1; i <= hypothesisWords.length; i++) {
-			for (let j = 1; j <= referenceWords.length; j++) {
-				if (hypothesisWords[i - 1] === referenceWords[j - 1]) {
-					dp[i][j] = dp[i - 1][j - 1];
-				} else {
-					dp[i][j] = Math.min(
-						dp[i - 1][j] + 1, // deletion
-						dp[i][j - 1] + 1, // insertion
-						dp[i - 1][j - 1] + 1 // substitution
-					);
-				}
-			}
-		}
-
-		// WER is the minimum number of edits normalized by the number of reference words
-		const wer = dp[hypothesisWords.length][referenceWords.length] / referenceWords.length;
-		return wer;
 	};
 
 	const step = () => {
@@ -101,31 +87,15 @@
 		}
 		progress += 1;
 	};
-	let text = 'nothi';
-	const dummyData = [
-		{
-			affirmation:
-				' The first. I am so good like the best and stuff its crazy how good i am like just wow',
-			img: ''
-		},
-		{
-			affirmation: 'The second affirmation, now i am supposed to say somthing good about myself',
-			img: ''
-		},
-		{ affirmation: 'The third affirmation, this one is really hard', img: '' }
-	];
-	let progress = 0;
-	let totalAffirmations = dummyData.length;
-	let done = false;
-	const allowedWER = 0.3;
+	
 </script>
 
-<Page class="  bg-white">
+<Page class="  bg-white z-0">
 	<Navbar transparent>
 		<NavbarBackLink slot="left" text="Back" onClick={() => history.back()} />
 	</Navbar>
-
-	<Card raised class="bg-black">
+	<img alt="background showing nature" src={nature} class="background-image {done ? 'animate' : ''}"/>
+	<Card raised class="bg-black z-10">
 		{#if done}
 			<p>Done</p>
 		{:else}
@@ -134,15 +104,36 @@
 	</Card>
 
 	<Block class="w-full absolute bottom-0 ">
-		<Fab class="rounded-full mx-auto" onClick={start}>
+		<Fab class="rounded-full mx-auto animate-puls {listening ? 'animate-pulse k-color-my-color' : ''}" onClick={start}>
 			<img alt="microphone" slot="icon" src={micIcon} />
 		</Fab>
 
-		<Button class="max-w-[64px] mx-auto my-16 k-color-my-color" onClick={step}>Skip</Button>
+		<Button class="max-w-[64px] mx-auto my-16" onClick={step}>Skip</Button>
 
 		<Progressbar class="" progress={progress / totalAffirmations} />
 	</Block>
 </Page>
 
 <style>
+	.background-image{
+		background-image: url('$lib/assets/nature.jpg');
+		position: absolute;
+		z-index: -1;
+		height: 100vh;
+		width: 100%;
+		top: 0;
+		filter: blur(8px);
+  -webkit-filter: blur(8px);
+	}
+	.animate{
+		animation: blur-animation 3s ease-in forwards;
+
+	}
+	@keyframes blur-animation{
+		100% {
+			filter: blur(0px);
+  			-webkit-filter: blur(0px);
+			z-index: 5;
+		}
+	}
 </style>
