@@ -1,7 +1,15 @@
+
+const cleanSentence = (sentence) =>{
+	return sentence.toLocaleLowerCase().trim().split(/\s+/).map(
+		(x)=>x.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>{}[\]\\/]/gi, '')
+	);
+}
+
 export const wordErrorRate = (hypothesis, reference) => {
 	// Tokenize the strings into words
-	const hypothesisWords = hypothesis.trim().split(/\s+/);
-	const referenceWords = reference.trim().split(/\s+/);
+	const hypothesisWords = cleanSentence(hypothesis);
+	const referenceWords = cleanSentence(reference);
+
 
 	// Initialize matrix for dynamic programming
 	const dp = [];
