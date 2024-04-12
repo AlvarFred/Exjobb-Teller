@@ -1,7 +1,7 @@
 <script>
 	import { SpeechRecognition } from '@capacitor-community/speech-recognition';
 	import { onMount} from 'svelte';
-	import {fly} from 'svelte/transition';
+	import {fade, fly} from 'svelte/transition';
 	import micIcon from '$lib/assets/mic.svg';
 	import {wordErrorRate} from '$lib/wer.js';
 	import nature from '$lib/assets/nature.jpg';
@@ -52,7 +52,6 @@
 		
 
 		try{
-			console.log(" ------------------- STARTED ------------------- ")
 			listening = true;
 			const matches = await SpeechRecognition.start({
 				language: 'en-US',
@@ -61,7 +60,6 @@
 				partialResults: false,
 				popup: false
 			});
-			console.log('¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤', matches.matches, '¤¤¤¤¤¤¤¤¤¤¤¤¤¤')
 			listening = false;
 
 			// Set input to the most probable match
@@ -83,8 +81,6 @@
 				sentenceComplete = true
 				//step();
 			}
-			console.log(" ------------------- Stopped ------------------- ")
-
 		} catch(e){
 			console.log(e)
 			listening = false;
@@ -112,7 +108,7 @@
 	<Navbar transparent>
 		<NavbarBackLink slot="left" text="Back" onClick={() => history.back()} />
 	</Navbar>
-	<img alt="background showing nature" src={done ? dummyData[1].img : dummyData[progress].img} class="background-image {sentenceComplete ? 'animate' : ''}" on:click={next}/>
+	<img alt="background showing nature" src={done ? dummyData[0].img : dummyData[progress].img} class="background-image {sentenceComplete ? 'animate' : ''}" on:click={next}/>
 	{#if !done}
 	<div  class="{sentenceComplete ? 'animate-fade' : ''}">
 		<Card raised class="bg-black z-10 {sentenceComplete ? 'animate-fade' : ''}">
@@ -137,30 +133,35 @@
 		<Progressbar class="" progress={progress / (totalAffirmations)} />
 	</Block>
 	{:else}
-		<div class="  h-[50vh] w-[100%] text-center absolute bottom-0 rounded-lg" transition:fly={{delay: 100, duration: 2000, y: '100vh'}}>
-			<Card class="text-center bg-opacity-80">
-				<p class="text-3xl">{totalAffirmations} / {totalAffirmations}</p>
-				<p class="text-2xl">You completed all the sentences!</p>
-				<Block class="flex  justify-between my-[15px]">
-					<Button  class="mx-[5px]" >Go Again</Button>
-					<Button onClick={() => history.back()} class="mx-[5px]">Return Home</Button>
+		<div class="  h-[50vh] w-[100%] text-center  rounded-lg" transition:fly={{delay: 100, duration: 2000, y: '100vh'}}>
+				<Block class="bg-black bg-opacity-0 rounded-lg mx-[14px] mt-[15vh]">
+
+					<p class= "text-shadow text-5xl  text-white font-bold">Good Job!</p>
+					<p class= "text-shadow text-2xl text-white">{totalAffirmations} Affirmations Completed!</p>
 				</Block>
-				
-			</Card> 
-		</div>
+			</div>
+				<div transition:fade={{delay:100, duration: 2000}}>
+					<Block  class="bg-black bg-opacity-0 flex rounded-lg h-[15vh] my-[0px] justify-between items-center  absolute bottom-0 w-[100%]">
+						<Button class=" k-color-light-blue  drop-shadow-[0px_4px_8px_black] mx-[5px] w-[40vw] " >Go Again</Button>
+						<Button onClick={() => history.back()} class="drop-shadow-[0px_4px_8px_black] mx-[5px] w-[40vw]">Return Home</Button>
+					</Block>
+				</div>
 	{/if}
 </Page>
 
 <style>
+	.text-shadow{
+		/* offset-x | offset-y | blur-radius | color */
+		text-shadow: 0px 0px 4px black;
+	}
 	.background-image{
-		/* background-image: url('$lib/assets/nature.jpg'); */
 		position: absolute;
 		z-index: -1;
 		height: 100vh;
 		width: 100%;
 		top: 0;
-		/* filter: blur(8px);
- 		-webkit-filter: blur(8px); */
+		/* filter: blur(8px); */
+ 		/* -webkit-filter: blur(8px);  */
 	}
 
 	.animate{
