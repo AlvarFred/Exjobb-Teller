@@ -15,7 +15,7 @@ module.exports = konstaConfig({
 	darkMode: 'selector', // or 'class'
 	konsta: {
 		colors: {
-			'my-color': '#ff0000'
+			'light-blue': '#92D6F8'
 		}
 	},
 	theme: {
