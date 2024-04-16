@@ -1,33 +1,29 @@
 <script>
-	import { Camera } from '@capacitor/camera';
-  import {
-    Page,
-    Button
-  } from 'konsta/svelte'
-	const takePhoto = async ()=>{
-		try {
-          const photo = await Camera.getPhoto({
-            resultType: 'uri',
-          });
+    import {
+      Page,
+      Button
+    } from 'konsta/svelte'
 
-          const image = self.shadowRoot.querySelector('#image');
-          if (!image) {
-            return;
-          }
-
-          image.src = photo.webPath;
-        } catch (e) {
-          console.warn('User cancelled', e);
-        }
-	}
 </script>
-<Page>
 
-  <h1>HEJ</h1>
-  <a href="/ingame"><Button>Start</Button></a>
+<Page>
+    <div class="flex justify-items-center">
+        <Button a href="/ingame" class="k-color-light-blue drop-shadow-[0px_4px_8px_black] mx-[5px] w-[40vw]">
+            Start
+        </Button>
+    </div>
+
+    <div class="grid grid-cols-2 gap-x-4 justify-items-center absolute bottom-0 w-full">
+        <Button a href="/ingame" class="k-color-light-blue drop-shadow-[0px_4px_8px_black] mx-[5px] w-[40vw]">
+            Home
+        </Button>
+
+        <Button a href="/ingame" class="k-color-light-blue drop-shadow-[0px_4px_8px_black] mx-[5px] w-[40vw]">
+            Lists
+        </Button>
+    </div>
+
 </Page>
 
-
 <style>
-	
 </style>
