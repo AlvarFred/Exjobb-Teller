@@ -25,6 +25,7 @@
 
   <h1>HEJ</h1>
   <a href="/ingame"><Button>Start</Button></a>
+  <a href="/lists"><Button>list</Button></a>
 </Page>
 
 
