@@ -38,9 +38,9 @@
 	let speechInput = '';
 	let progress = 0;
 	let totalAffirmations = dummyData.length;
-	let done = true;
+	let done = false;
 	let listening = false;
-	let sentenceComplete = true;
+	let sentenceComplete = false;
 	
 	const startListening = async () => {
 		// Check if device has speech recognition
@@ -78,7 +78,7 @@
                 "wer": wer, 
                 "allowedWER": allowedWER, 
                 "original-sentence": dummyData[progress].affirmation,
-                "received-sentence": text
+                "received-sentence": speechInput
             })
 			
             console.log("###################", jsonData)
@@ -122,7 +122,7 @@
 	<Navbar transparent>
 		<NavbarBackLink slot="left" text="Back" onClick={() => history.back()} />
 	</Navbar>
-	<img alt="background showing nature" src={done ? dummyData[0].img : dummyData[progress].img} class="background-image {sentenceComplete ? 'animate' : ''}" on:click={next}/>
+	<img alt="background showing nature" src={done ? dummyData[progress - 1].img : dummyData[progress].img} class="background-image {sentenceComplete ? 'animate' : ''}" on:click={next}/>
 	{#if !done}
 	<div  class="{sentenceComplete ? 'animate-fade' : ''}">
 		<Card raised class="bg-black z-10 {sentenceComplete ? 'animate-fade' : ''}">
@@ -174,8 +174,8 @@
 		height: 100vh;
 		width: 100%;
 		top: 0;
-		/* filter: blur(8px); */
- 		/* -webkit-filter: blur(8px);  */
+		filter: blur(8px);
+ 		-webkit-filter: blur(8px);
 	}
 
 	.animate{
