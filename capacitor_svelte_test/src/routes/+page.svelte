@@ -7,18 +7,18 @@
 </script>
 
 <Page>
-    <div class="flex justify-items-center">
-        <Button a href="/ingame" class="k-color-light-blue drop-shadow-[0px_4px_8px_black] mx-[5px] w-[40vw]">
+    <div class="flex items-center justify-center h-64">
+        <Button a href="/ingame" class="k-color-light-blue drop-shadow-[0px_4px_8px_black] mx-[5px] w-[60vw]">
             Start
         </Button>
     </div>
 
-    <div class="grid grid-cols-2 gap-x-4 justify-items-center absolute bottom-0 w-full">
-        <Button a href="/ingame" class="k-color-light-blue drop-shadow-[0px_4px_8px_black] mx-[5px] w-[40vw]">
+    <div class="grid grid-cols-2 gap-x-6 absolute bottom-0 w-full h-32">
+        <Button a href="/ingame" class="k-color-light-blue drop-shadow-[0px_4px_8px_black] mx-[5px] w-[35vw]">
             Home
         </Button>
 
-        <Button a href="/ingame" class="k-color-light-blue drop-shadow-[0px_4px_8px_black] mx-[5px] w-[40vw]">
+        <Button a href="/ingame" class="k-color-light-blue drop-shadow-[0px_4px_8px_black] mx-[5px] w-[35vw]">
             Lists
         </Button>
     </div>
