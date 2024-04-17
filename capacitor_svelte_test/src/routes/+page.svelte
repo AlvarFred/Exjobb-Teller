@@ -7,18 +7,21 @@
 </script>
 
 <Page>
-    <div class="flex items-center justify-center h-64">
-        <Button a href="/ingame" class="k-color-light-blue drop-shadow-[0px_4px_8px_black] mx-[5px] w-[60vw]">
+    <div class="flex items-center justify-center h-[70vh]">
+        <!-- Streak/Statistics here -->
+        <div class="flex justify-center rounded-full bg-orange-400 w-[62vw] h-[62vw]"> 
+            <p class="m-auto text-[3rem]">
+                42 
+            </p>
+        </div>
+    </div>
+    
+    <div class="justify-items-center w-full h-48">
+        <Button a href="/ingame" class="k-color-light-blue w-[70vw] h-[6vh] m-auto my-8">
             Start
         </Button>
-    </div>
 
-    <div class="grid grid-cols-2 gap-x-6 absolute bottom-0 w-full h-32">
-        <Button a href="/ingame" class="k-color-light-blue drop-shadow-[0px_4px_8px_black] mx-[5px] w-[35vw]">
-            Home
-        </Button>
-
-        <Button a href="/ingame" class="k-color-light-blue drop-shadow-[0px_4px_8px_black] mx-[5px] w-[35vw]">
+        <Button a href="/ingame" class="k-color-light-blue w-[70vw] h-[6vh] m-auto my-8">
             Lists
         </Button>
     </div>
