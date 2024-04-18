@@ -24,7 +24,7 @@
 	const dummyData = [
 		{
 			affirmation:
-				' The first. I am so good like the best and stuff its crazy how good i am like just wow',
+				' The first. I am so good.',
 			img: nature
 		},
 		{
