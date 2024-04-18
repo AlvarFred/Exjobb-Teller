@@ -20,7 +20,8 @@
 		BlockFooter
 	} from 'konsta/svelte';
 	import {logData} from '$lib/logData.js';
-
+	export let data;
+	console.log(data.list[0])
 	const dummyData = [
 		{
 			affirmation:
@@ -37,11 +38,11 @@
 	const allowedWER = 0.3;
 	let speechInput = '';
 	let progress = 0;
-	let totalAffirmations = dummyData.length;
+	let totalAffirmations = data.list.length;
 	let done = false;
 	let listening = false;
 	let sentenceComplete = false;
-	
+	$: imageSrc = done ? data.list[progress - 1].img :  data.list[progress].img 
 	const startListening = async () => {
 		// Check if device has speech recognition
 		const available = await SpeechRecognition.available();
@@ -66,10 +67,10 @@
 			// Set input to the most probable match
 			speechInput = matches.matches[0];
 
-			console.log('###########################\ngot: ', speechInput, '\nwas: ', dummyData[progress].affirmation)
+			console.log('###########################\ngot: ', speechInput, '\nwas: ', data.list[progress].affirmation)
 
 			// Calculate Word Error Rate
-            const wer = wordErrorRate(speechInput, dummyData[progress].affirmation);
+            const wer = wordErrorRate(speechInput, data.list[progress].affirmation);
 
 			// Log data
 			const status = wer < allowedWER;
@@ -77,7 +78,7 @@
                 "success": status, 
                 "wer": wer, 
                 "allowedWER": allowedWER, 
-                "original-sentence": dummyData[progress].affirmation,
+                "original-sentence": data.list[progress].affirmation,
                 "received-sentence": speechInput
             })
 			
@@ -115,6 +116,13 @@
 		sentenceComplete = false;
 		step();
 	}
+
+	const reset = () => {
+		progress = 0;
+		done = false;
+		listening = false;
+		sentenceComplete = false;
+	}
 	
 </script>
 
@@ -122,14 +130,14 @@
 	<Navbar transparent>
 		<NavbarBackLink slot="left" text="Back" onClick={() => history.back()} />
 	</Navbar>
-	<img alt="background showing nature" src={done ? dummyData[progress - 1].img : dummyData[progress].img} class="background-image {sentenceComplete ? 'animate' : ''}" on:click={next}/>
+	<img alt="background showing nature" src={imageSrc} class="background-image {sentenceComplete ? 'animate' : ''}" on:click={next}/>
 	{#if !done}
 	<div  class="{sentenceComplete ? 'animate-fade' : ''}">
 		<Card raised class="bg-black z-10 {sentenceComplete ? 'animate-fade' : ''}">
 			{#if done}
 				<p>Done</p>
 			{:else}
-				<p class="text-2xl">{dummyData[progress].affirmation}</p>
+				<p class="text-2xl">{data.list[progress].affirmation}</p>
 			{/if}
 		</Card>
 	</div>
@@ -156,7 +164,7 @@
 			</div>
 				<div transition:fade={{delay:100, duration: 2000}}>
 					<Block  class="bg-black bg-opacity-0 flex rounded-lg h-[15vh] my-[0px] justify-between items-center  absolute bottom-0 w-[100%]">
-						<Button class=" k-color-light-blue  drop-shadow-[0px_4px_8px_black] mx-[5px] w-[40vw] " >Go Again</Button>
+						<Button onClick={()=> reset()} class=" k-color-light-blue  drop-shadow-[0px_4px_8px_black] mx-[5px] w-[40vw] " >Go Again</Button>
 						<Button onClick={() => history.back()} class="drop-shadow-[0px_4px_8px_black] mx-[5px] w-[40vw]">Return Home</Button>
 					</Block>
 				</div>
