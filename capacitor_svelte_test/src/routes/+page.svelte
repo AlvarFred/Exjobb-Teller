@@ -3,6 +3,8 @@
       Page,
       Button
     } from 'konsta/svelte'
+    import {defaultList} from '$lib/defaultList'
+	
 
 </script>
 
@@ -20,7 +22,7 @@
     </div>
     
     <div class="justify-items-center w-full h-48">
-        <Button a href="/ingame" class="k-color-light-blue max-w-[60vw] h-[6vh] m-auto my-8">
+        <Button a href="/ingame/{$defaultList}" class="k-color-light-blue max-w-[60vw] h-[6vh] m-auto my-8">
             Start
         </Button>
 
