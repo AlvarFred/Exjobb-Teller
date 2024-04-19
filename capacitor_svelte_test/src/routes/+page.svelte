@@ -1,4 +1,5 @@
 <script>
+  import {defaultList} from '$lib/defaultList'
 	import { Camera } from '@capacitor/camera';
   import {
     Page,
@@ -24,7 +25,7 @@
 <Page>
 
   <h1>HEJ</h1>
-  <a href="/ingame"><Button>Start</Button></a>
+  <a href="/ingame/{$defaultList}"><Button>Start</Button></a>
   <a href="/lists"><Button>list</Button></a>
 </Page>
 
