@@ -19,7 +19,10 @@ const config = {
 			fallback: null,
 			precompress: false,
 			strict: true
-		})
+		}),
+		prerender: {
+			entries: ['/','/lists', '/ingame/list1']
+		}
 	}
 };
 
