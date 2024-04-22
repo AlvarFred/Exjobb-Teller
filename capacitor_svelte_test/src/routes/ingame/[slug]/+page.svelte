@@ -6,6 +6,8 @@
 	import {wordErrorRate} from '$lib/wer.js';
 	import nature from '$lib/assets/nature.jpg';
 	import nature2 from '$lib/assets/nature2.jpeg';
+    import Fail_Sound from '$lib/audio/Fail_Sound.wav'
+    import success_sound from '$lib/audio/success_sound.wav'
 
 	import {
 		Page,
@@ -34,6 +36,9 @@
 		},
 		{ affirmation: 'The third affirmation, this one is really hard', img: nature }
 	];
+
+    const failAudio = new Audio(Fail_Sound);
+    const successAudio = new Audio(success_sound);
 
 	const allowedWER = 0.3;
 	let speechInput = '';
@@ -84,16 +89,19 @@
 			
             console.log("###################", jsonData)
             logData(jsonData)
-
+            
 			if (wer > allowedWER) {
-				// Fail
+                // Fail
 				console.log('Failed: WER = ', wer, ' > allowed = ', allowedWER);
 				// TODO: Show user that speech recognition failed
+                console.log("##### PLAY FAIL AUDIO")
+                failAudio.play();
 			} else {
 				// Success
 				console.log('Success: WER = ', wer, ' < allowed = ', allowedWER);
 				// TODO: Do some cool animation to show user speech recognition succeeded
 				sentenceComplete = true
+                successAudio.play()
 				//step();
 			}
 		} catch(e){
