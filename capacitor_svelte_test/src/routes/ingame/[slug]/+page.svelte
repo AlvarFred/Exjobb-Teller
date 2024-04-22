@@ -1,6 +1,5 @@
 <script>
 	import { SpeechRecognition } from '@capacitor-community/speech-recognition';
-	import { onMount} from 'svelte';
 	import {fade, fly} from 'svelte/transition';
 	import micIcon from '$lib/assets/mic.svg';
 	import {wordErrorRate} from '$lib/wer.js';
@@ -18,8 +17,6 @@
 		Navbar,
 		NavbarBackLink,
 		Block,
-		BlockHeader,
-		BlockFooter
 	} from 'konsta/svelte';
 	import {logData} from '$lib/logData.js';
 	export let data;
