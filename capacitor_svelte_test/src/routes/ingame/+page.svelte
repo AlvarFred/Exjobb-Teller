@@ -7,6 +7,7 @@
 	import nature from '$lib/assets/nature.jpg';
 	import nature2 from '$lib/assets/nature2.jpeg';
     import Fail_Sound from '$lib/audio/Fail_Sound.wav'
+    import success_sound from '$lib/audio/success_sound.wav'
 
 	import {
 		Page,
@@ -21,7 +22,6 @@
 		BlockFooter
 	} from 'konsta/svelte';
 	import {logData} from '$lib/logData.js';
-	import { Capacitor } from '@capacitor/core';
 
 	const dummyData = [
 		{
@@ -37,7 +37,7 @@
 	];
 
     const failAudio = new Audio(Fail_Sound);
-    const successAudio = new Audio();
+    const successAudio = new Audio(success_sound);
 
 	const allowedWER = 0.3;
 	let speechInput = '';
