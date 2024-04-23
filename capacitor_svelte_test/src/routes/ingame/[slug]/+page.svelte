@@ -21,18 +21,6 @@
 	import {logData} from '$lib/logData.js';
 	export let data;
 	console.log(data.list[0])
-	const dummyData = [
-		{
-			affirmation:
-				' The first. I am so good.',
-			img: nature
-		},
-		{
-			affirmation: 'The second affirmation, now i am supposed to say something good about myself',
-			img: nature2
-		},
-		{ affirmation: 'The third affirmation, this one is really hard', img: nature }
-	];
 
     const failAudio = new Audio(Fail_Sound);
     const successAudio = new Audio(success_sound);
@@ -44,7 +32,10 @@
 	let done = false;
 	let listening = false;
 	let sentenceComplete = false;
+    let sentenceFailed = false;
+    $: cardAnimation = sentenceFailed ? 'animate-shake' : sentenceComplete ? 'animate-fade' : ''
 	$: imageSrc = done ? data.list[progress - 1].img :  data.list[progress].img 
+
 	const startListening = async () => {
 		// Check if device has speech recognition
 		const available = await SpeechRecognition.available();
@@ -54,7 +45,11 @@
 		let hasPremissions = await SpeechRecognition.checkPermissions()
 		console.log("00000000000\n",hasPremissions.speechRecognition, "\n00000000000");
 		if (hasPremissions.speechRecognition != "granted") await SpeechRecognition.requestPermissions();
-		
+        
+        
+        // Reset sentence failed if user has already failed one time
+        sentenceFailed = false;
+
 		try{
 			listening = true;
 			const matches = await SpeechRecognition.start({
@@ -91,6 +86,10 @@
                 // Fail
 				console.log('Failed: WER = ', wer, ' > allowed = ', allowedWER);
 				// TODO: Show user that speech recognition failed
+
+                // User failed sentence and feedback should be submitted
+                sentenceFailed = true;
+
                 console.log("##### PLAY FAIL AUDIO")
                 failAudio.play();
 			} else {
@@ -135,10 +134,12 @@
 	<Navbar transparent>
 		<NavbarBackLink slot="left" text="Back" onClick={() => history.back()} />
 	</Navbar>
-	<img alt="background showing nature" src={imageSrc} class="background-image {sentenceComplete ? 'animate' : ''}" on:click={next}/>
-	{#if !done}
-	<div  class="{sentenceComplete ? 'animate-fade' : ''}">
-		<Card raised class="bg-black z-10 {sentenceComplete ? 'animate-fade' : ''}">
+	
+    <img alt="background showing nature" src={imageSrc} class="background-image {sentenceComplete ? 'animate' : ''}" on:click={next}/>
+	
+    {#if !done}
+	<div  class="{cardAnimation}">
+		<Card raised class="bg-black z-10">
 			{#if done}
 				<p>Done</p>
 			{:else}
@@ -210,4 +211,19 @@
 			opacity: 0;
 		}
 	}
+
+    .animate-shake{
+        animation: shake 150ms linear forwards;
+    }
+    @keyframes shake{
+        0% {
+		    transform: translate(3px, 0);
+		  }
+		  50% {
+		    transform: translate(-3px, 0);
+		  }
+		  100% {
+		    transform: translate(0, 0);
+		  }
+    }
 </style>
