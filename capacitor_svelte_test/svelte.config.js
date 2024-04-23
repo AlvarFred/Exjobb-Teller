@@ -16,13 +16,13 @@ const config = {
 			// these options are set automatically — see below
 			pages: 'build',
 			assets: 'build',
-			fallback: null,
+			fallback: 'index.html',
 			precompress: false,
 			strict: true
 		}),
-		prerender: {
-			entries: ['/','/lists', '/ingame/list1']
-		}
+		// prerender: {
+		// 	entries: ['/','/lists', '/ingame/*']
+		// }
 	}
 };
 
