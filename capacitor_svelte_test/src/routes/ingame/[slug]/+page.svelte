@@ -127,7 +127,7 @@
 		listening = false;
 		sentenceComplete = false;
 	}
-	
+ 
 </script>
 
 <Page class="  bg-white z-0">
@@ -139,7 +139,7 @@
 	
     {#if !done}
 	<div  class="{cardAnimation}">
-		<Card raised class="bg-black z-10">
+		<Card raised class="bg-black z-10 text-center">
 			{#if done}
 				<p>Done</p>
 			{:else}
@@ -148,17 +148,27 @@
 		</Card>
 	</div>
 
+    <div>
+        <Button class="m-4 {cardAnimation}" onClick={() => sentenceFailed = true}>
+            True
+        </Button>
+
+        <Button class="m-4 {cardAnimation}" onClick={() => sentenceFailed = false}>
+            False
+        </Button>
+    </div>
+
 	<Block class="w-full absolute bottom-0 ">
 		<div class="{sentenceComplete ? 'animate-fade' : ''}">
 
-			<Fab class="rounded-full mx-auto animate-puls {listening ? 'animate-pulse k-color-my-color' : ''}" onClick={startListening}>
-				<img alt="microphone" slot="icon" src={micIcon} />
+			<Fab class="rounded-full w-[20vw] h-[20vw] mx-auto {listening ? 'animate-mic k-color-my-color' : ''}" onClick={startListening}>
+				<img style="transform: scale(1.5)" alt="microphone" slot="icon" src={micIcon} />
 			</Fab>
 	
-			<Button class="max-w-[64px] mx-auto my-16" onClick={step}>Skip</Button>
+			<Button class="max-w-[24vw] h-[5vh] mx-auto my-16" onClick={step}>Skip</Button>
 		</div>
 
-		<Progressbar class="" progress={progress / (totalAffirmations)} />
+		<Progressbar class="rounded-full h-[1.2vh]" progress={progress / (totalAffirmations)} />
 	</Block>
 	{:else}
 		<div class="  h-[50vh] w-[100%] text-center  rounded-lg" transition:fly={{delay: 100, duration: 2000, y: '100vh'}}>
@@ -226,4 +236,6 @@
 		    transform: translate(0, 0);
 		  }
     }
+
+
 </style>
