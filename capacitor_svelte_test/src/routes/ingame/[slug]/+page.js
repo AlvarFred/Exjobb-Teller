@@ -3,7 +3,7 @@ import { error } from '@sveltejs/kit';
 export async function load({params}){
     try{
 
-        const jonsfile = await import(`../${params.slug}.json`)
+        const jonsfile = await import(`../lists/${params.slug}.json`)
         console.log(jonsfile);
         return {
             list: jonsfile.default
