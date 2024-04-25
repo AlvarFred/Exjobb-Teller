@@ -6,32 +6,33 @@ export const ssr = false;
 
 export async function load() {
     const {value} = await Preferences.get({ key: "notificationsEnabled"});
-    if (value === null || true) {
-        // Enable notifactions 
-        const enable = await LocalNotifications.checkPermissions();
-        if(enable.display != 'granted' || true){
+    if (value === null) {
+        // Enable notifications if needed 
+        const permission = await LocalNotifications.checkPermissions();
+        if(permission.display != 'granted'){
             const responsStatus =  (await LocalNotifications.requestPermissions()).display
-            if(responsStatus == 'granted'){
-                if(await scheduleNotification()){
-                    await Preferences.set({
-                                key: "notificationsEnabled",
-                                value: "true"
-                            })
-                } else{
-                   console.log("Scheduling of notification failed")
-                }
+            if(responsStatus != 'granted'){
+               console.log("Scheduling of notification not granted")
+               await Preferences.set({
+                key: "notificationsEnabled",
+                value: "false"
+            })
             }
         }
-        console.log('#¤#¤##¤#¤##¤#¤##¤#¤##¤#¤##¤#¤##¤#¤##¤#¤##¤#¤#\n',enable.display, '\n#¤#¤##¤#¤##¤#¤##¤#¤##¤#¤##¤#¤##¤#¤##¤#¤##¤#¤#')
-       
+        // Enable notifications and save the setting
+        if(await scheduleNotification(13,0)){
+            await Preferences.set({
+                        key: "notificationsEnabled",
+                        value: "true"
+                    })
+        } else{
+           console.log("Scheduling of notification failed")
+        }       
     }
-    console.log('#¤#¤##¤#¤##¤#¤##¤#¤##¤#¤##¤#¤##¤#¤##¤#¤##¤#¤#')
-    console.log(value);
-    console.log('#¤#¤##¤#¤##¤#¤##¤#¤##¤#¤##¤#¤##¤#¤##¤#¤##¤#¤#')
-    await disableNotifications()
+    //await disableNotifications()
 }
 
-const scheduleNotification = async () => {
+const scheduleNotification = async (hour, minute) => {
     const options = {
         notifications: [
             {
@@ -41,7 +42,8 @@ const scheduleNotification = async () => {
                 schedule: {
                     allowWhileIdle: true,
                     on:{
-                        second: 30
+                        hour: hour,
+                        minute: minute
                     }
                 }
             }
