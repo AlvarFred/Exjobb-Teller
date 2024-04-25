@@ -34,6 +34,7 @@
 	let sentenceComplete = false;
     let sentenceFailed = false;
     $: cardAnimation = sentenceFailed ? 'animate-shake' : sentenceComplete ? 'animate-fade' : ''
+    $: micAnimation = listening ? 'animate-mic' : ''
 	$: imageSrc = done ? data.list[progress - 1].img :  data.list[progress].img 
 
 	const startListening = async () => {
@@ -161,9 +162,16 @@
 	<Block class="w-full absolute bottom-0 ">
 		<div class="{sentenceComplete ? 'animate-fade' : ''}">
 
-			<Fab class="rounded-full w-[20vw] h-[20vw] mx-auto {listening ? 'animate-mic k-color-my-color' : ''}" onClick={startListening}>
-				<img style="transform: scale(1.5)" alt="microphone" slot="icon" src={micIcon} />
-			</Fab>
+            <div class="">
+                <Fab class="animate-mic-pulse rounded-full w-[20vw] h-[20vw] mx-auto border-0" onClick={startListening}>
+                    <img class="animate-mic-bounce" style="transform: scale(1.5); position: absolute;" alt="microphone" slot="icon" src={micIcon} />
+                </Fab>
+            </div>
+
+            <!-- Testing purposes -->
+            <div class="">
+                <img class="animate-mic-bounce" src={micIcon}/>
+            </div>
 	
 			<Button class="max-w-[24vw] h-[5vh] mx-auto my-16" onClick={step}>Skip</Button>
 		</div>
@@ -171,7 +179,7 @@
 		<Progressbar class="rounded-full h-[1.2vh]" progress={progress / (totalAffirmations)} />
 	</Block>
 	{:else}
-		<div class="  h-[50vh] w-[100%] text-center  rounded-lg" transition:fly={{delay: 100, duration: 2000, y: '100vh'}}>
+		<div class="h-[50vh] w-[100%] text-center  rounded-lg" transition:fly={{delay: 100, duration: 2000, y: '100vh'}}>
 				<Block class="bg-black bg-opacity-0 rounded-lg mx-[14px] mt-[15vh]">
 
 					<p class= "text-shadow text-5xl  text-white font-bold">Good Job!</p>
@@ -179,7 +187,7 @@
 				</Block>
 			</div>
 				<div transition:fade={{delay:100, duration: 2000}}>
-					<Block  class="bg-black bg-opacity-0 flex rounded-lg h-[15vh] my-[0px] justify-between items-center  absolute bottom-0 w-[100%]">
+					<Block class="bg-black bg-opacity-0 flex rounded-lg h-[15vh] my-[0px] justify-between items-center  absolute bottom-0 w-[100%]">
 						<Button onClick={()=> reset()} class=" k-color-light-blue  drop-shadow-[0px_4px_8px_black] mx-[5px] w-[40vw] " >Go Again</Button>
 						<Button onClick={() => history.back()} class="drop-shadow-[0px_4px_8px_black] mx-[5px] w-[40vw]">Return Home</Button>
 					</Block>
@@ -237,5 +245,7 @@
 		  }
     }
 
-
+    .animate-mic{
+        animation: pulse 3s ease-in forwards;
+    }
 </style>
