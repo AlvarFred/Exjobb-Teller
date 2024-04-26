@@ -11,7 +11,8 @@ export const scheduleNotification = async (hour, minute) => {
                     allowWhileIdle: true,
                     on:{
                         hour: hour,
-                        minute: minute
+                        minute: minute,
+                        second: 0
                     }
                 }
             }
