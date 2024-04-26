@@ -2,23 +2,8 @@
 export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {
-		extend: {    
-            keyframes:{
-                bounce:{
-                    '0%': {
-                        transform: 'translateY(0)'
-                    },
-                    '50%':{
-                        transform: 'translateY(-20px)'
-                    },
-                    '100%':{
-                        transform: 'translateY(0)'
-                    }
-                }
-            },
-            animation:{
-                'mic-bounce': 'bounce 1.5s ease-in infinte'
-            }
+		extend: {
+            
         }
 	},
 	plugins: []
@@ -32,49 +17,44 @@ module.exports = konstaConfig({
 	darkMode: 'selector', // or 'class'
 	konsta: {
 		colors: {
-			'light-blue': '#92D6F8'
+			'light-blue': '#92D6F8',
+            'brand-red': '#ff0000',
 		}
 	},
 	theme: {
 		extend: {
+            colors: {
+                'brand-red': '#ff0000',
+            },
             keyframes:{
                 pulse:{
                     '0%': {
-                        width: '20vw', 
-                        height: '20vw',
                         opacity: 1,
-                        outline: '3px solid #92D6F8'
+                        outline: '0px solid rgba(240, 50, 30, 0.9)',
                     },
                     '50%':{
-                        width: '20vw', 
-                        height: '20vw',
                         opacity: 1,
-                        outline: '14px solid rgba(146, 214, 248, 0.6)'
+                        outline: '12px solid rgba(240, 50, 30, 0.6)'
                     },
                     '100%':{
-                        width: '20vw', 
-                        height: '20vw',
                         opacity: 1,
-                        outline: '3px solid rgba(146, 214, 248, 0.9)'
+                        outline: '0px solid rgba(240, 50, 30, 0.9)'
                     }
                 },
-                bounce:{
+                pulse_reverse:{
                     '0%': {
-                        transform: 'translateY(0)',
-                        //transform: 'scale(1)'
-                    },
-                    '50%':{
-                        transform: 'translateY(-20px)'
+                        opacity: 1,
+                        outline: '12px solid rgba(240, 50, 30, 0.6)'
                     },
                     '100%':{
-                        transform: 'translateY(0)'
-                        //transform: 'scale(2)'
+                        opacity: 1,
+                        outline: '0px solid rgba(240, 50, 30, 0.9)'
                     }
                 }
             },
             animation:{
-                'mic-pulse': 'pulse 1.2s infinite',
-                'mic-bounce': 'bounce 1.5s infinte'
+                'mic-pulse': 'pulse 1.2s ease-in-out infinite',
+                'mic-retract': 'pulse_reverse 0.6s ease-in'
             }
         }
 	},

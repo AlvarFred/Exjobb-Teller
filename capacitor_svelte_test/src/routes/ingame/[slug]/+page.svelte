@@ -33,15 +33,16 @@
 	let listening = false;
 	let sentenceComplete = false;
     let sentenceFailed = false;
+    let userActivatedMic = false;
     $: cardAnimation = sentenceFailed ? 'animate-shake' : sentenceComplete ? 'animate-fade' : ''
-    $: micAnimation = listening ? 'animate-mic' : ''
+    $: micAnimation = listening ? 'animate-mic-pulse' : (userActivatedMic && !listening) ? 'animate-mic-retract' : ''
 	$: imageSrc = done ? data.list[progress - 1].img :  data.list[progress].img 
 
 	const startListening = async () => {
-		// Check if device has speech recognition
+        // Check if device has speech recognition
 		const available = await SpeechRecognition.available();
 		if (!available.available) alert('Speech recognition is not available');
-
+        
 		// Ask user for mic permissions if it isn't already granted
 		let hasPremissions = await SpeechRecognition.checkPermissions()
 		console.log("00000000000\n",hasPremissions.speechRecognition, "\n00000000000");
@@ -50,21 +51,22 @@
         
         // Reset sentence failed if user has already failed one time
         sentenceFailed = false;
-
+        
 		try{
-			listening = true;
+            listening = true;
+            userActivatedMic = true;
 			const matches = await SpeechRecognition.start({
-				language: 'en-US',
+                language: 'en-US',
 				maxResults: 2,
 				prompt: 'Say something',
 				partialResults: false,
 				popup: false
 			});
 			listening = false;
-
+            
 			// Set input to the most probable match
 			speechInput = matches.matches[0];
-
+            
 			console.log('###########################\ngot: ', speechInput, '\nwas: ', data.list[progress].affirmation)
 
 			// Calculate Word Error Rate
@@ -128,7 +130,7 @@
 		listening = false;
 		sentenceComplete = false;
 	}
- 
+
 </script>
 
 <Page class="  bg-white z-0">
@@ -154,7 +156,7 @@
             True
         </Button>
 
-        <Button class="m-4 {cardAnimation}" onClick={() => sentenceFailed = false}>
+        <Button class="m-4 {cardAnimation} k-color-brand-red" onClick={() => sentenceFailed = false}>
             False
         </Button>
     </div>
@@ -162,15 +164,10 @@
 	<Block class="w-full absolute bottom-0 ">
 		<div class="{sentenceComplete ? 'animate-fade' : ''}">
 
-            <div class="">
-                <Fab class="animate-mic-pulse rounded-full w-[20vw] h-[20vw] mx-auto border-0" onClick={startListening}>
-                    <img class="animate-mic-bounce" style="transform: scale(1.5); position: absolute;" alt="microphone" slot="icon" src={micIcon} />
+            <div>
+                <Fab class="{micAnimation} rounded-full w-[20vw] h-[20vw] mx-auto border-0 {listening ? 'bg-white' : ''}" onClick={startListening}>
+                    <img style="transform: scale(1.5);" alt="microphone" slot="icon" src={micIcon} />
                 </Fab>
-            </div>
-
-            <!-- Testing purposes -->
-            <div class="">
-                <img class="animate-mic-bounce" src={micIcon}/>
             </div>
 	
 			<Button class="max-w-[24vw] h-[5vh] mx-auto my-16" onClick={step}>Skip</Button>
