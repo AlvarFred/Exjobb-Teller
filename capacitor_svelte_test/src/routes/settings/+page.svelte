@@ -1,45 +1,48 @@
 <script>
 	import { Block, BlockTitle, Button, ListInput, Navbar, NavbarBackLink, Page, Toggle } from 'konsta/svelte';
+    import { Preferences } from '@capacitor/preferences';
+    import {rescheduleNotification, disableNotifications} from '$lib/notifications.js'
+    export let data;
+    console.log(data)
+    let notificationsEnabled = data.enabled === "true";
+    let time = data.time;
 
-    let notificationsEnabled = true;
     const toggleNotifications = () => {
         notificationsEnabled = !notificationsEnabled;
     }
-    const save = () => {
+    const save = async () => {
+        await Preferences.set({
+            key: "notificationsEnabled",
+            value: notificationsEnabled.toString()
+        });
 
+        const [hour, minute] = time.split(':');
+        await Preferences.set({key: "notificationHour", value: hour});
+        await Preferences.set({key: "notificationMinute", value: minute});
+        if(notificationsEnabled){
+            await rescheduleNotification(hour,minute);
+        } else{
+            await disableNotifications();
+        }
     }
-    const hourOnChange = (e) => {
-        console.log(e)
-    }
-    let hour = 13;
-    let minute = 30;
+
 </script>
 <Page>
     <Navbar title="Settings">
         <NavbarBackLink slot="left" text="Back" onClick={() => history.back()} />
     </Navbar>
-    <BlockTitle>Daily Notifications</BlockTitle>
-    <Block class="flex items-end justify-between">
+    <BlockTitle class="mx-4">Daily Notifications</BlockTitle>
+    <Block class="flex items-end justify-between mx-4">
         <Toggle class="justify-self-end" checked={notificationsEnabled} onChange={toggleNotifications}/>
-        <div class="flex items-end {notificationsEnabled ? '' : 'disabled'}">
-            <div class="mx-[10px] ">
-                <label class="block " for="Hour">Hour</label>
-                <input 
-                    class="text-center block border-2 outline-gray-700"
-                    name="hour" disabled={!notificationsEnabled} 
-                    type="number" 
-                    bind:value={hour} 
-                    on:change={(e)=>{hourOnChange(e.target.value)}}
-                    pattern="[0-9]*"
-                    required
-                 />
-            </div>
-            <p class="text-4xl">:</p>
-            <div class="mx-[10px]">
-                <label class="block" for="minute">Minute</label>
-                <input class="text-center block border-2" name="minute" disabled={!notificationsEnabled} type="number" bind:value={minute} pattern="[0-9]*"/>
-            </div>
-        </div>
+
+        <!-- <label class=" " for="Hour">When:</label> -->   
+        <input 
+        class="text-xl text-right {notificationsEnabled ? '' : 'disabled'}" 
+        disabled={!notificationsEnabled}
+        type="time" 
+        bind:value={time} />
+        
+           
     </Block>
     <Block class="absolute bottom-0 flex justify-end w-[100vw]">
         <Button class="w-[20vw]" onClick={save}>Save</Button>
@@ -50,18 +53,12 @@
     .disabled{
         color: gray;
     }
+
     input{
-        width: 40px;
-        height: 30px;
-    }
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
+        max-width: 120px;
+        height: 30px; 
+        background-color: #FEFBFF;
     }
 
-    /* Firefox */
-    input[type=number] {
-    -moz-appearance: textfield;
-    }
+
 </style>
