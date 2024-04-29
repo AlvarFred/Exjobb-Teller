@@ -23,32 +23,29 @@ module.exports = konstaConfig({
 	},
 	theme: {
 		extend: {
-            colors: {
-                'brand-red': '#ff0000',
-            },
             keyframes:{
                 pulse:{
                     '0%': {
                         opacity: 1,
-                        outline: '0px solid rgba(240, 50, 30, 0.9)',
+                        outline: '0px solid rgba(220, 38, 38, 0.9)',
                     },
                     '50%':{
                         opacity: 1,
-                        outline: '12px solid rgba(240, 50, 30, 0.6)'
+                        outline: '12px solid rgba(220, 38, 38, 0.6)'
                     },
                     '100%':{
                         opacity: 1,
-                        outline: '0px solid rgba(240, 50, 30, 0.9)'
+                        outline: '0px solid rgba(220, 38, 38, 0.9)'
                     }
                 },
                 pulse_reverse:{
                     '0%': {
                         opacity: 1,
-                        outline: '12px solid rgba(240, 50, 30, 0.6)'
+                        outline: '12px solid rgba(220, 38, 38, 0.6)'
                     },
                     '100%':{
                         opacity: 1,
-                        outline: '0px solid rgba(240, 50, 30, 0.9)'
+                        outline: '0px solid rgba(220, 38, 38, 0.9)'
                     }
                 }
             },

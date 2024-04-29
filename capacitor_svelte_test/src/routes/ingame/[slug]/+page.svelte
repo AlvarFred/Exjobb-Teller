@@ -35,7 +35,7 @@
     let sentenceFailed = false;
     let userActivatedMic = false;
     $: cardAnimation = sentenceFailed ? 'animate-shake' : sentenceComplete ? 'animate-fade' : ''
-    $: micAnimation = listening ? 'animate-mic-pulse' : (userActivatedMic && !listening) ? 'animate-mic-retract' : ''
+    $: micAnimation = listening ? 'animate-mic-pulse bg-red-600' : (userActivatedMic && !listening) ? 'animate-mic-retract' : ''
 	$: imageSrc = done ? data.list[progress - 1].img :  data.list[progress].img 
 
 	const startListening = async () => {
@@ -151,21 +151,11 @@
 		</Card>
 	</div>
 
-    <div>
-        <Button class="m-4 {cardAnimation}" onClick={() => sentenceFailed = true}>
-            True
-        </Button>
-
-        <Button class="m-4 {cardAnimation} k-color-brand-red" onClick={() => sentenceFailed = false}>
-            False
-        </Button>
-    </div>
-
 	<Block class="w-full absolute bottom-0 ">
 		<div class="{sentenceComplete ? 'animate-fade' : ''}">
 
             <div>
-                <Fab class="{micAnimation} rounded-full w-[20vw] h-[20vw] mx-auto border-0 {listening ? 'bg-white' : ''}" onClick={startListening}>
+                <Fab class="{micAnimation} rounded-full w-[20vw] h-[20vw] mx-auto border-0" onClick={startListening}>
                     <img style="transform: scale(1.5);" alt="microphone" slot="icon" src={micIcon} />
                 </Fab>
             </div>
