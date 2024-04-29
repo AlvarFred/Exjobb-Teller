@@ -46,6 +46,7 @@
 	let sentenceComplete = false;
 	$: imageSrc = done ? data.list[progress - 1].img :  data.list[progress].img 
 	const startListening = async () => {
+		await SpeechRecognition.requestPermissions();
 		// Check if device has speech recognition
 		const available = await SpeechRecognition.available();
 		if (!available.available) alert('Speech recognition is not available');

@@ -29,6 +29,9 @@
         <Button a href="/lists" class="k-color-light-blue max-w-[60vw] h-[6vh] m-auto my-8">
             Lists
         </Button>
+        <Button a href="/settings" class="k-color-light-blue max-w-[60vw] h-[6vh] m-auto my-8">
+            Settings
+        </Button>
     </div>
 
 </Page>

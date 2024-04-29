@@ -19,7 +19,10 @@ const config = {
 			fallback: 'index.html',
 			precompress: false,
 			strict: true
-		})
+		}),
+		// prerender: {
+		// 	entries: ['/','/lists', '/ingame/*']
+		// }
 	}
 };
 
