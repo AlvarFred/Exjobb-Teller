@@ -2,13 +2,22 @@
 	import { Block, BlockTitle, Button, Navbar, NavbarBackLink, Page, Toast, Toggle } from 'konsta/svelte';
     import { Preferences } from '@capacitor/preferences';
     import {rescheduleNotification, disableNotifications} from '$lib/notifications.js'
+
     export let data;
-    console.log(data)
     let notificationsEnabled = data.enabled === "true";
     let time = data.time;
+    let toastOpen = false;
+    let error = false;
 
     const toggleNotifications = () => {
         notificationsEnabled = !notificationsEnabled;
+    }
+
+    const openToast = () => {
+        toastOpen = true;
+        setTimeout(() => {
+            toastOpen = false;
+        }, 3000);
     }
   
     const save = async () => {
@@ -17,7 +26,9 @@
         console.log(hour,minute)
         if(hour === "" || hour === null){
             time = data.time;
-            console.log(time)
+            console.log(time);
+            error = true;
+            openToast();
             return;
         }
         await Preferences.set({
@@ -33,6 +44,8 @@
         } else{
             await disableNotifications();
         }
+        error = false;
+        openToast();
     }
 
 </script>
@@ -57,8 +70,12 @@
     <Block class="absolute bottom-0 flex justify-end w-[100vw]">
         <Button class="w-[20vw]" onClick={save}>Save</Button>
     </Block>
-    <Toast opened={true}>
-    <p>Saved</p>
+    <Toast opened={toastOpen} class="text-center">
+        {#if error}
+            <p>Failed to save changes</p>
+        {:else}
+            <p>Changes saved</p>
+        {/if}
     </Toast>
 </Page>
 
