@@ -21,18 +21,6 @@
 	import {logData} from '$lib/logData.js';
 	export let data;
 	console.log(data.list[0])
-	const dummyData = [
-		{
-			affirmation:
-				' The first. I am so good.',
-			img: nature
-		},
-		{
-			affirmation: 'The second affirmation, now i am supposed to say something good about myself',
-			img: nature2
-		},
-		{ affirmation: 'The third affirmation, this one is really hard', img: nature }
-	];
 
     const failAudio = new Audio(Fail_Sound);
     const successAudio = new Audio(success_sound);
@@ -44,32 +32,41 @@
 	let done = false;
 	let listening = false;
 	let sentenceComplete = false;
+    let sentenceFailed = false;
+    let userActivatedMic = false;
+    $: cardAnimation = sentenceFailed ? 'animate-shake' : sentenceComplete ? 'animate-fade' : ''
+    $: micAnimation = listening ? 'animate-mic-pulse bg-red-600' : (userActivatedMic && !listening) ? 'animate-mic-retract' : ''
 	$: imageSrc = done ? data.list[progress - 1].img :  data.list[progress].img 
+
 	const startListening = async () => {
-		await SpeechRecognition.requestPermissions();
-		// Check if device has speech recognition
+        // Check if device has speech recognition
 		const available = await SpeechRecognition.available();
 		if (!available.available) alert('Speech recognition is not available');
-
+        
 		// Ask user for mic permissions if it isn't already granted
 		let hasPremissions = await SpeechRecognition.checkPermissions()
 		console.log("00000000000\n",hasPremissions.speechRecognition, "\n00000000000");
 		if (hasPremissions.speechRecognition != "granted") await SpeechRecognition.requestPermissions();
-		
+        
+        
+        // Reset sentence failed if user has already failed one time
+        sentenceFailed = false;
+        
 		try{
-			listening = true;
+            listening = true;
+            userActivatedMic = true;
 			const matches = await SpeechRecognition.start({
-				language: 'en-US',
+                language: 'en-US',
 				maxResults: 2,
 				prompt: 'Say something',
 				partialResults: false,
 				popup: false
 			});
 			listening = false;
-
+            
 			// Set input to the most probable match
 			speechInput = matches.matches[0];
-
+            
 			console.log('###########################\ngot: ', speechInput, '\nwas: ', data.list[progress].affirmation)
 
 			// Calculate Word Error Rate
@@ -92,6 +89,10 @@
                 // Fail
 				console.log('Failed: WER = ', wer, ' > allowed = ', allowedWER);
 				// TODO: Show user that speech recognition failed
+
+                // User failed sentence and feedback should be submitted
+                sentenceFailed = true;
+
                 console.log("##### PLAY FAIL AUDIO")
                 failAudio.play();
 			} else {
@@ -129,51 +130,56 @@
 		listening = false;
 		sentenceComplete = false;
 	}
-	
+
 </script>
 
-<Page class="  bg-white z-0">
+<Page class="bg-white z-0">
 	<Navbar transparent>
 		<NavbarBackLink slot="left" text="Back" onClick={() => history.back()} />
 	</Navbar>
-	<img alt="background showing nature" src={imageSrc} class="background-image {sentenceComplete ? 'animate' : ''}" on:click={next}/>
-	{#if !done}
-	<div  class="{sentenceComplete ? 'animate-fade' : ''}">
-		<Card raised class="bg-black z-10 {sentenceComplete ? 'animate-fade' : ''}">
-			{#if done}
-				<p>Done</p>
-			{:else}
-				<p class="text-2xl">{data.list[progress].affirmation}</p>
-			{/if}
-		</Card>
-	</div>
-
-	<Block class="w-full absolute bottom-0 ">
-		<div class="{sentenceComplete ? 'animate-fade' : ''}">
-
-			<Fab class="rounded-full mx-auto animate-puls {listening ? 'animate-pulse k-color-my-color' : ''}" onClick={startListening}>
-				<img alt="microphone" slot="icon" src={micIcon} />
-			</Fab>
 	
-			<Button class="max-w-[64px] mx-auto my-16" onClick={step}>Skip</Button>
+    <img alt="background showing nature" src={imageSrc} class="background-image {sentenceComplete ? 'animate' : ''}" on:click={next}/>
+	
+    {#if !done}
+        <div class="{cardAnimation}">
+            <Card raised class="bg-black z-10 text-center">
+                {#if done}
+	    		<p>Done</p>
+                {:else}
+	    		<p class="text-2xl">{data.list[progress].affirmation}</p>
+                {/if}
+            </Card>
+        </div>
+
+        <Block class="w-full absolute bottom-0 ">
+            <div class="{sentenceComplete ? 'animate-fade' : ''}">
+
+                <div>
+                    <Fab class="{micAnimation} rounded-full w-[20vw] h-[20vw] mx-auto border-0" onClick={startListening}>
+                        <img style="transform: scale(1.5);" alt="microphone" slot="icon" src={micIcon} />
+                    </Fab>
+                </div>
+
+                <Button class="max-w-[24vw] h-[5vh] mx-auto my-16" onClick={step}>Skip</Button>
+            </div>
+
+            <Progressbar class="rounded-full h-[1.2vh]" progress={progress / (totalAffirmations)} />
+        </Block>
+        
+    {:else}
+        <div class="h-[50vh] w-[100%] text-center  rounded-lg" in:fly={{delay: 100, duration: 2000, y: '100vh'}} out:fly={{delay: 0, duration: 1, y: '100vh'}}>
+                <Block class="bg-black bg-opacity-0 rounded-lg mx-[14px] mt-[15vh]">
+	    			<p class= "text-shadow text-5xl  text-white font-bold">Good Job!</p>
+	    			<p class= "text-shadow text-2xl text-white">{totalAffirmations} Affirmations Completed!</p>
+	    		</Block>
+	    </div>
+
+		<div in:fade={{delay:100, duration: 1500}} out:fade={{delay:0, duration: 1}}>
+			<Block class="bg-black bg-opacity-0 flex rounded-lg h-[15vh] my-[0px] justify-between items-center absolute bottom-0 w-[100%]">
+				<Button onClick={()=> reset()} class=" k-color-light-blue  drop-shadow-[0px_4px_8px_black] mx-[5px] w-[40vw] " >Go Again</Button>
+				<Button onClick={() => history.back()} class="drop-shadow-[0px_4px_8px_black] mx-[5px] w-[40vw]">Return Home</Button>
+			</Block>
 		</div>
-
-		<Progressbar class="" progress={progress / (totalAffirmations)} />
-	</Block>
-	{:else}
-		<div class="  h-[50vh] w-[100%] text-center  rounded-lg" transition:fly={{delay: 100, duration: 2000, y: '100vh'}}>
-				<Block class="bg-black bg-opacity-0 rounded-lg mx-[14px] mt-[15vh]">
-
-					<p class= "text-shadow text-5xl  text-white font-bold">Good Job!</p>
-					<p class= "text-shadow text-2xl text-white">{totalAffirmations} Affirmations Completed!</p>
-				</Block>
-			</div>
-				<div transition:fade={{delay:100, duration: 2000}}>
-					<Block  class="bg-black bg-opacity-0 flex rounded-lg h-[15vh] my-[0px] justify-between items-center  absolute bottom-0 w-[100%]">
-						<Button onClick={()=> reset()} class=" k-color-light-blue  drop-shadow-[0px_4px_8px_black] mx-[5px] w-[40vw] " >Go Again</Button>
-						<Button onClick={() => history.back()} class="drop-shadow-[0px_4px_8px_black] mx-[5px] w-[40vw]">Return Home</Button>
-					</Block>
-				</div>
 	{/if}
 </Page>
 
@@ -211,4 +217,23 @@
 			opacity: 0;
 		}
 	}
+
+    .animate-shake{
+        animation: shake 150ms linear forwards;
+    }
+    @keyframes shake{
+        0% {
+		    transform: translate(3px, 0);
+		  }
+		  50% {
+		    transform: translate(-3px, 0);
+		  }
+		  100% {
+		    transform: translate(0, 0);
+		  }
+    }
+
+    .animate-mic{
+        animation: pulse 3s ease-in forwards;
+    }
 </style>
