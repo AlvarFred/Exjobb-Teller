@@ -39,6 +39,13 @@
 	$: imageSrc = done ? data.list[progress - 1].img :  data.list[progress].img 
 
 	const startListening = async () => {
+        
+        // If user clicks on the non-visible microphone button when image is being showed, send user to next affirmation
+        if(sentenceComplete){
+            next();
+            return;
+        }
+
         // Check if device has speech recognition
 		const available = await SpeechRecognition.available();
 		if (!available.available) alert('Speech recognition is not available');
@@ -154,11 +161,9 @@
         <Block class="w-full absolute bottom-0 ">
             <div class="{sentenceComplete ? 'animate-fade' : ''}">
 
-                <div>
-                    <Fab class="{micAnimation} rounded-full w-[20vw] h-[20vw] mx-auto border-0" onClick={startListening}>
-                        <img style="transform: scale(1.5);" alt="microphone" slot="icon" src={micIcon} />
-                    </Fab>
-                </div>
+                <Fab class="{micAnimation} rounded-full w-[20vw] h-[20vw] mx-auto border-0" onClick={startListening}>
+                    <img style="transform: scale(1.5);" alt="microphone" slot="icon" src={micIcon} />
+                </Fab>
 
                 <Button class="max-w-[24vw] h-[5vh] mx-auto my-16" onClick={step}>Skip</Button>
             </div>
