@@ -1,19 +1,23 @@
 <script>
-	import { Block, BlockTitle, Card, Navbar, NavbarBackLink, Page } from "konsta/svelte";
+	import { Block, BlockTitle, Card, Navbar, NavbarBackLink, Page, Button } from "konsta/svelte";
 
     const lists = [{
-        name: "Self love",
+        name: "Test list",
+        path: "list1",
         completed: 2
     },{
-        name: "I'm the best",
+        name: "Programming",
+        path: "programming",
         completed: 0
 
     },{
-        name: "My own Boss",
+        name: "Tidy Home",
+        path: "tidy_home",
         completed: 72
 
     },{
-        name: "I am the one",
+        name: "Workout",
+        path: "workout",
         completed: 8
 
     },]
@@ -28,9 +32,14 @@
     <BlockTitle large class="text-black mt-[0px] mx-[10px]">Affirmation lists</BlockTitle>
     <Block class="">
         {#each lists as list}
-               <Card raised>
-                <h2 class="text-lg">{list.name}</h2>
-                <p class="text-xs">Completed {list.completed} times</p>
+               <Card raised class="">
+                    <div class="flex flex-row justify-between">
+                        <div>
+                            <h2 class="text-lg">{list.name}</h2>
+                            <p class="text-xs">Completed {list.completed} times</p>
+                        </div>
+                        <Button tonal a href="/ingame/{list.path}" class="w-[20%]">Play</Button>
+                    </div>
                </Card>
         {/each } 
     </Block>
