@@ -133,7 +133,7 @@
 
 </script>
 
-<Page class="  bg-white z-0">
+<Page class="bg-white z-0">
 	<Navbar transparent>
 		<NavbarBackLink slot="left" text="Back" onClick={() => history.back()} />
 	</Navbar>
@@ -141,44 +141,45 @@
     <img alt="background showing nature" src={imageSrc} class="background-image {sentenceComplete ? 'animate' : ''}" on:click={next}/>
 	
     {#if !done}
-	<div  class="{cardAnimation}">
-		<Card raised class="bg-black z-10 text-center">
-			{#if done}
-				<p>Done</p>
-			{:else}
-				<p class="text-2xl">{data.list[progress].affirmation}</p>
-			{/if}
-		</Card>
-	</div>
+        <div class="{cardAnimation}">
+            <Card raised class="bg-black z-10 text-center">
+                {#if done}
+	    		<p>Done</p>
+                {:else}
+	    		<p class="text-2xl">{data.list[progress].affirmation}</p>
+                {/if}
+            </Card>
+        </div>
 
-	<Block class="w-full absolute bottom-0 ">
-		<div class="{sentenceComplete ? 'animate-fade' : ''}">
+        <Block class="w-full absolute bottom-0 ">
+            <div class="{sentenceComplete ? 'animate-fade' : ''}">
 
-            <div>
-                <Fab class="{micAnimation} rounded-full w-[20vw] h-[20vw] mx-auto border-0" onClick={startListening}>
-                    <img style="transform: scale(1.5);" alt="microphone" slot="icon" src={micIcon} />
-                </Fab>
+                <div>
+                    <Fab class="{micAnimation} rounded-full w-[20vw] h-[20vw] mx-auto border-0" onClick={startListening}>
+                        <img style="transform: scale(1.5);" alt="microphone" slot="icon" src={micIcon} />
+                    </Fab>
+                </div>
+
+                <Button class="max-w-[24vw] h-[5vh] mx-auto my-16" onClick={step}>Skip</Button>
             </div>
-	
-			<Button class="max-w-[24vw] h-[5vh] mx-auto my-16" onClick={step}>Skip</Button>
+
+            <Progressbar class="rounded-full h-[1.2vh]" progress={progress / (totalAffirmations)} />
+        </Block>
+        
+    {:else}
+        <div class="h-[50vh] w-[100%] text-center  rounded-lg" in:fly={{delay: 100, duration: 2000, y: '100vh'}} out:fly={{delay: 0, duration: 1, y: '100vh'}}>
+                <Block class="bg-black bg-opacity-0 rounded-lg mx-[14px] mt-[15vh]">
+	    			<p class= "text-shadow text-5xl  text-white font-bold">Good Job!</p>
+	    			<p class= "text-shadow text-2xl text-white">{totalAffirmations} Affirmations Completed!</p>
+	    		</Block>
+	    </div>
+
+		<div in:fade={{delay:100, duration: 1500}} out:fade={{delay:0, duration: 1}}>
+			<Block class="bg-black bg-opacity-0 flex rounded-lg h-[15vh] my-[0px] justify-between items-center absolute bottom-0 w-[100%]">
+				<Button onClick={()=> reset()} class=" k-color-light-blue  drop-shadow-[0px_4px_8px_black] mx-[5px] w-[40vw] " >Go Again</Button>
+				<Button onClick={() => history.back()} class="drop-shadow-[0px_4px_8px_black] mx-[5px] w-[40vw]">Return Home</Button>
+			</Block>
 		</div>
-
-		<Progressbar class="rounded-full h-[1.2vh]" progress={progress / (totalAffirmations)} />
-	</Block>
-	{:else}
-		<div class="h-[50vh] w-[100%] text-center  rounded-lg" transition:fly={{delay: 100, duration: 2000, y: '100vh'}}>
-				<Block class="bg-black bg-opacity-0 rounded-lg mx-[14px] mt-[15vh]">
-
-					<p class= "text-shadow text-5xl  text-white font-bold">Good Job!</p>
-					<p class= "text-shadow text-2xl text-white">{totalAffirmations} Affirmations Completed!</p>
-				</Block>
-			</div>
-				<div transition:fade={{delay:100, duration: 2000}}>
-					<Block class="bg-black bg-opacity-0 flex rounded-lg h-[15vh] my-[0px] justify-between items-center  absolute bottom-0 w-[100%]">
-						<Button onClick={()=> reset()} class=" k-color-light-blue  drop-shadow-[0px_4px_8px_black] mx-[5px] w-[40vw] " >Go Again</Button>
-						<Button onClick={() => history.back()} class="drop-shadow-[0px_4px_8px_black] mx-[5px] w-[40vw]">Return Home</Button>
-					</Block>
-				</div>
 	{/if}
 </Page>
 
