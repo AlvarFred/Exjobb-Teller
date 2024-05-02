@@ -3,8 +3,6 @@
 	import {fade, fly} from 'svelte/transition';
 	import micIcon from '$lib/assets/mic.svg';
 	import {wordErrorRate} from '$lib/wer.js';
-	import nature from '$lib/assets/nature.jpg';
-	import nature2 from '$lib/assets/nature2.jpeg';
     import Fail_Sound from '$lib/audio/Fail_Sound.wav'
     import success_sound from '$lib/audio/success_sound.wav'
 
@@ -17,6 +15,8 @@
 		Navbar,
 		NavbarBackLink,
 		Block,
+        Dialog,
+        DialogButton
 	} from 'konsta/svelte';
 	import {logData} from '$lib/logData.js';
 	export let data;
@@ -34,6 +34,7 @@
 	let sentenceComplete = false;
     let sentenceFailed = false;
     let userActivatedMic = false;
+    let exitListPrompt = false;
     $: cardAnimation = sentenceFailed ? 'animate-shake' : sentenceComplete ? 'animate-fade' : ''
     $: micAnimation = listening ? 'animate-mic-pulse bg-red-600' : (userActivatedMic && !listening) ? 'animate-mic-retract' : ''
 	$: imageSrc = done ? data.list[progress - 1].img :  data.list[progress].img 
@@ -142,14 +143,27 @@
 
 <Page class="bg-white z-0">
 	<Navbar transparent>
-		<NavbarBackLink slot="left" text="Back" onClick={() => history.back()} />
+		<NavbarBackLink class="" style="padding: 20px;" slot="left" text="Back" onClick={() => exitListPrompt = true} />
 	</Navbar>
 	
     <img alt="background showing nature" src={imageSrc} class="background-image {sentenceComplete ? 'animate' : ''}" on:click={next}/>
 	
+    <Dialog opened={exitListPrompt} onBackdropClick={() => (exitListPrompt = false)}>
+        <svelte:fragment slot="title">Do you want to exit?</svelte:fragment>
+        All current progress will be lost.
+        <svelte:fragment slot="buttons">
+            <DialogButton onClick={() => history.back()}>
+                Yes
+            </DialogButton>
+            <DialogButton strong onClick={() => exitListPrompt = false}>
+                No
+            </DialogButton>
+        </svelte:fragment>
+    </Dialog>
+
     {#if !done}
         <div class="{cardAnimation}">
-            <Card raised class="bg-black z-10 text-center">
+            <Card raised class="bg-black z-10 text-center my-10">
                 {#if done}
 	    		<p>Done</p>
                 {:else}
