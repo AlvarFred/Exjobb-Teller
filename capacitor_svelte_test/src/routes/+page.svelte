@@ -4,23 +4,17 @@
       Button
     } from 'konsta/svelte'
     import {defaultList} from '$lib/defaultList'
-	
+	import CircularChart from './CircularChart.svelte';
+	import CalenderStats from './CalenderStats.svelte';
+	let percentage = 25;
 
 </script>
 
 <Page>
-    <div class="flex items-center justify-center h-[70vh]">
-        <!-- Streak/Statistics here -->
-        <div class="flex flex-col justify-center items-center rounded-full bg-orange-400 w-[62vw] h-[62vw]"> 
-            <p class="text-[3rem]">
-                42 
-            </p>
-            <p class="text-[3rem]">
-                days 
-            </p>
-        </div>
+    <div class="flex items-center justify-center h-[60vh]">
+        <CircularChart color={"#8BC34A"} percentage={percentage}/>
     </div>
-    
+    <CalenderStats />
     <div class="justify-items-center w-full h-48">
         <Button a href="/ingame/{$defaultList}" class="k-color-light-blue max-w-[60vw] h-[6vh] m-auto my-8">
             Start
