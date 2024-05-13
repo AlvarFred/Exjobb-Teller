@@ -11,10 +11,10 @@
 </script>
 
 <Page>
-    <div class="flex items-center justify-center h-[60vh]">
+    <div class="flex flex-col items-center justify-center h-[60vh]">
         <CircularChart color={"#8BC34A"} percentage={percentage}/>
+        <CalenderStats />
     </div>
-    <CalenderStats />
     <div class="justify-items-center w-full h-48">
         <Button a href="/ingame/{$defaultList}" class="k-color-light-blue max-w-[60vw] h-[6vh] m-auto my-8">
             Start
