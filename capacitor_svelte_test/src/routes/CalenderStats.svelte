@@ -18,14 +18,14 @@
         },
         {
             number: 5,
-            completed: [0,1,,0,0,1,]
+            completed: [0,1,,0,0,1,0]
         }
     ]
 
-        const style = "font-mono"
+        const style = "font-mono font-normal"
 </script>
 
-<table class="w-[80vw] text-center bg-[#EEEEEE] border-spacing-4 border-separate rounded">
+<table class="w-[70vw] text-center bg-[#EEEEEE] border-spacing-3 border-separate rounded-lg">
     <thead>
         <tr>
             <th class={style}></th>
@@ -41,12 +41,10 @@
     <tbody>
         {#each weeks as week }
             <tr>
-                <td class="font-bold">{week.number}</td>
+                <td class="">{week.number}</td>
                 {#each week.completed as day }
                     <td>
-                        {#if day > 0}
-                        <StarSvg class="stroke-yellow"/>
-                       {/if}
+                        <StarSvg completed={day > 0}/>
                     </td>
                 {/each}
             </tr>
