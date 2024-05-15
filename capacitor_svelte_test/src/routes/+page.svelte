@@ -16,7 +16,7 @@
     console.log(data.weekday)
 </script>
 
-<Page>
+<Page class="flex flex-col">
     <Navbar transparent>
         <a slot="right" href="/settings">
             <button  class="bg-[#D9D9D9] p-2 mx-2 rounded-lg"> 
@@ -24,18 +24,18 @@
             </button>
         </a>
     </Navbar>
-    <div class="flex flex-col items-center justify-center h-[60vh]">
+    <div class="flex flex-col grow items-center justify-between mt-8">
         <CircularChart color={"#8BC34A"} current={data.weeks[3].days[data.weekday]} goal={$dailyGoal}/>
         <CalenderStats weeks={data.weeks} today={data.weekday}/>
-    </div>
-    <div class="justify-items-center w-full h-48">
-        <Button a href="/ingame/{$defaultList}" class="k-color-main-green  max-w-[60vw] h-[6vh] m-auto my-8 text-xl">
-            Start
-        </Button>
+        <div class="w-full">
+            <Button a href="/ingame/{$defaultList}" class="k-color-main-green  max-w-[60vw] h-[6vh] mx-auto my-8 text-xl">
+                Start
+            </Button>
 
-        <Button a href="/lists"  outline class="k-color-main-green max-w-[60vw] h-[6vh] m-auto my-8 outline-4 text-xl">
-            Lists
-        </Button>
+            <Button a href="/lists"  outline class="k-color-main-green max-w-[60vw] h-[6vh] mx-auto mb-[64px]  text-xl">
+                Lists
+            </Button>
+        </div>
     </div>
 
 </Page>

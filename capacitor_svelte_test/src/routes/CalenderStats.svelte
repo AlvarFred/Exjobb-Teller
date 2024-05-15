@@ -4,12 +4,12 @@
     export let today;
     console.log(weeks)
 
-        const style = "font-mono font-normal"
+        const style = "font-mono font-normal w-[24px]"
 </script>
 
 <table class="w-[70vw] text-center bg-[#EEEEEE] border-spacing-3 border-separate rounded-lg">
     <thead>
-        <tr>
+        <tr  class="flex justify-between items-center">
             <th class={style}></th>
             <th class={style}>Mo</th>
             <th class={style}>Tu</th>
@@ -22,10 +22,10 @@
     </thead>
     <tbody>
         {#each weeks as week, i }
-            <tr>
-                <td class="">{week.number}</td>
+            <tr class="flex justify-between items-center">
+                <td class="w-[24px]">{week.number}</td>
                 {#each week.days as day, j }
-                    <td class=" text-center {i == 3 && today == j ? "today" : ""}">
+                    <td class="w-[24px] {i == 3 && today == j ? "today" : ""}">
                         <StarSvg completed={day > 0}/>
                     </td>
                 {/each}
@@ -37,6 +37,6 @@
 
 <style>
     .today{
-        border: 1px solid black;
+        
     }
 </style>
