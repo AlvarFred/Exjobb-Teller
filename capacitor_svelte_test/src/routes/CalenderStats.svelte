@@ -1,26 +1,8 @@
 <script>
 	import StarSvg from "./starSvg.svelte";
-
-
-    let weeks = 
-    [
-        {
-            number: 2,
-            completed: [0,1,2,0,0,1,1]
-        },
-        {
-            number: 3,
-            completed: [0,0,2,1,0,1,1]
-        },
-        {
-            number: 4,
-            completed: [1,1,2,1,1,1,1]
-        },
-        {
-            number: 5,
-            completed: [0,1,,0,0,1,0]
-        }
-    ]
+    export let weeks;
+    export let today;
+    console.log(weeks)
 
         const style = "font-mono font-normal"
 </script>
@@ -39,11 +21,11 @@
         </tr>
     </thead>
     <tbody>
-        {#each weeks as week }
+        {#each weeks as week, i }
             <tr>
                 <td class="">{week.number}</td>
-                {#each week.completed as day }
-                    <td>
+                {#each week.days as day, j }
+                    <td class=" text-center {i == 3 && today == j ? "today" : ""}">
                         <StarSvg completed={day > 0}/>
                     </td>
                 {/each}
@@ -52,3 +34,9 @@
         
     </tbody>
 </table>
+
+<style>
+    .today{
+        border: 1px solid black;
+    }
+</style>

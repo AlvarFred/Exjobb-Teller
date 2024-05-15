@@ -1,6 +1,7 @@
 <script>
     export let color;
-    export let percentage;
+    export let current;
+    export let goal;
 </script>
 
 <div class="single-chart">
@@ -11,12 +12,13 @@
             a 15.9155 15.9155 0 0 1 0 -31.831"
         />
         <path class="circle" style="stroke: {color};" 
-          stroke-dasharray="{percentage}, 100"
+          stroke-dasharray="{(current/goal)*100}, 100"
           d="M18 2.0845
             a 15.9155 15.9155 0 0 1 0 31.831
             a 15.9155 15.9155 0 0 1 0 -31.831"
         />
-        <text x="18" y="20.35" class="percentage">{percentage}%</text>
+        <text x="18" y="18.35" class="percentage">{current}/{goal}</text>
+        <text x="18" y="24.5" class="under-text">Daily Goal</text>
       </svg>
 </div>
 
@@ -55,6 +57,13 @@
   fill: #666;
   font-family: sans-serif;
   font-size: 0.5em;
+  text-anchor: middle;
+}
+
+.under-text{
+  fill: #666;
+  font-family: sans-serif;
+  font-size: 0.25em;
   text-anchor: middle;
 }
 </style>

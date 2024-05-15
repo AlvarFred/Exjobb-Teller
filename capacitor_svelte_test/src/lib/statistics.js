@@ -11,3 +11,9 @@ export const getWeekNumber = (d) => {
 	// Return array of year and week number
 	return weekNo;
 };
+
+export const weeksInYear = (year) => {
+	let d = new Date(year, 11, 31);
+	let week = getWeekNumber(d);
+	return week == 1 ? 52 : week;
+};

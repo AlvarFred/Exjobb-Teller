@@ -11,7 +11,9 @@
     import { dailyGoal } from '$lib/dailyGoal';
 
 	let percentage = 25;
-
+    export let data;
+    console.log(data.weeks)
+    console.log(data.weekday)
 </script>
 
 <Page>
@@ -23,8 +25,8 @@
         </a>
     </Navbar>
     <div class="flex flex-col items-center justify-center h-[60vh]">
-        <CircularChart color={"#8BC34A"} percentage={$dailyGoal}/>
-        <CalenderStats />
+        <CircularChart color={"#8BC34A"} current={data.weeks[3].days[data.weekday]} goal={$dailyGoal}/>
+        <CalenderStats weeks={data.weeks} today={data.weekday}/>
     </div>
     <div class="justify-items-center w-full h-48">
         <Button a href="/ingame/{$defaultList}" class="k-color-main-green  max-w-[60vw] h-[6vh] m-auto my-8 text-xl">
