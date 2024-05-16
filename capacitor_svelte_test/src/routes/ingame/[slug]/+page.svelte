@@ -5,7 +5,7 @@
 	import {wordErrorRate} from '$lib/wer.js';
     import Fail_Sound from '$lib/audio/Fail_Sound.wav'
     import success_sound from '$lib/audio/success_sound.wav'
-
+	import {increaseStats} from '$lib/statistics.js'
 	import {
 		Page,
 		Fab,
@@ -123,6 +123,7 @@
 		if (progress == totalAffirmations - 1) {
 			done = true;
 			sentenceComplete = true;
+			increaseStats();
 		} 
 		progress += 1;
 		

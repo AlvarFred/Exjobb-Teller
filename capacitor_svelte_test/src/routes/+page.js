@@ -1,5 +1,5 @@
 import { Preferences } from '@capacitor/preferences';
-import { getWeekNumber, weeksInYear } from '$lib/statistics';
+import { getWeekNumber, weeksInYear, getWeekDay } from '$lib/week';
 
 export async function load() {
 	const today = new Date();
@@ -7,13 +7,10 @@ export async function load() {
 	let weeks;
 	const weekdata = (await Preferences.get({ key: `statistics${year}` })).value;
 	if (weekdata) {
-		console.log(weekdata);
 		weeks = JSON.parse(weekdata);
-		console.log('Week data exsists');
 	} else {
 		//generate weeks for year
 		const nrOfWeeks = weeksInYear(today.getFullYear());
-		console.log(nrOfWeeks);
 		weeks = [];
 		let week;
 		for (let i = 0; i < nrOfWeeks; i++) {
@@ -24,11 +21,9 @@ export async function load() {
 			weeks.push(week);
 		}
 		await Preferences.set({ key: `statistics${year}`, value: JSON.stringify(weeks) });
-		console.log(weeks);
 	}
 
 	const currentWeekNo = getWeekNumber(today);
-	console.log(currentWeekNo);
 	let pastFourWeeks;
 
 	if (currentWeekNo < 4) {
@@ -42,12 +37,8 @@ export async function load() {
 		weeks[currentWeekNo - 1]
 	];
 
-	let weekday;
-	if (today.getDay() == 0) weekday = 6;
-	else weekday = today.getDay() - 1;
-
 	return {
 		weeks: pastFourWeeks,
-		weekday: weekday
+		weekday: getWeekDay(today)
 	};
 }
