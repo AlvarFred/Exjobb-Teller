@@ -52,7 +52,7 @@
 </script>
 <Page>
     <Navbar title="Settings">
-        <NavbarBackLink slot="left" text="Back" onClick={() => history.back()} />
+        <NavbarBackLink slot="left" text="Back" onClick={() => window.location = '/'} />
     </Navbar>
     <BlockTitle class="mx-4">Daily Notifications</BlockTitle>
     <Block class="flex items-end justify-between mx-4">
@@ -60,13 +60,11 @@
 
         <!-- <label class=" " for="Hour">When:</label> -->   
         <input 
-        class="text-xl text-right {notificationsEnabled ? '' : 'disabled'}" 
-        disabled={!notificationsEnabled}
-        type="time" 
-        bind:value={time} 
-        />
-        
-           
+            class="text-xl text-right {notificationsEnabled ? '' : 'disabled'}" 
+            disabled={!notificationsEnabled}
+            type="time" 
+            bind:value={time} 
+        />           
     </Block>
     
     <BlockTitle class="mx-4"> Export </BlockTitle>

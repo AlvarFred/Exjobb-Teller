@@ -27,7 +27,7 @@
 
 <Page>
     <Navbar transparent>
-		<NavbarBackLink slot="left" text="Back" onClick={() => history.back()} />
+		<NavbarBackLink slot="left" text="Back" onClick={() => window.location = '/'} />
 	</Navbar>
     <BlockTitle large class="text-black mt-[0px] mx-[10px]">Affirmation lists</BlockTitle>
     <Block class="">

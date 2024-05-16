@@ -145,7 +145,7 @@
     const triggerExitPrompt = () => {
         // If list is completed, no need to show prompt as all data has been saved
         if (done){
-            history.back();
+			window.location = '/';
         }
         exitPrompt = true;
     }
@@ -163,7 +163,7 @@
         <svelte:fragment slot="title">Do you want to exit?</svelte:fragment>
         All current progress will be lost.
         <svelte:fragment slot="buttons">
-            <DialogButton onClick={() => history.back()}>
+            <DialogButton onClick={() => window.location = '/'}>
                 Yes
             </DialogButton>
             <DialogButton strong onClick={() => exitPrompt = false}>
@@ -207,7 +207,7 @@
 		<div in:fade={{delay:100, duration: 1500}} out:fade={{delay:0, duration: 1}}>
 			<Block class="bg-black bg-opacity-0 flex rounded-lg h-[15vh] my-[0px] justify-between items-center absolute bottom-0 w-[100%]">
 				<Button onClick={()=> reset()} class=" k-color-light-blue  drop-shadow-[0px_4px_8px_black] mx-[5px] w-[40vw] " >Go Again</Button>
-				<Button onClick={() => history.back()} class="drop-shadow-[0px_4px_8px_black] mx-[5px] w-[40vw]">Return Home</Button>
+				<Button a href="/" class="drop-shadow-[0px_4px_8px_black] mx-[5px] w-[40vw]">Return Home</Button>
 			</Block>
 		</div>
 	{/if}
