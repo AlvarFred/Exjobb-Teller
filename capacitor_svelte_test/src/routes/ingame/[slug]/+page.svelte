@@ -7,7 +7,7 @@
 	import nature2 from '$lib/assets/nature2.jpeg';
     import Fail_Sound from '$lib/audio/Fail_Sound.wav'
     import success_sound from '$lib/audio/success_sound.wav'
-
+	import {increaseStats} from '$lib/statistics.js'
 	import {
 		Page,
 		Fab,
@@ -21,18 +21,7 @@
 	import {logData} from '$lib/logData.js';
 	export let data;
 	console.log(data.list[0])
-	const dummyData = [
-		{
-			affirmation:
-				' The first. I am so good.',
-			img: nature
-		},
-		{
-			affirmation: 'The second affirmation, now i am supposed to say something good about myself',
-			img: nature2
-		},
-		{ affirmation: 'The third affirmation, this one is really hard', img: nature }
-	];
+	
 
     const failAudio = new Audio(Fail_Sound);
     const successAudio = new Audio(success_sound);
@@ -112,6 +101,7 @@
 		if (progress == totalAffirmations - 1) {
 			done = true;
 			sentenceComplete = true;
+			increaseStats();
 		} 
 		progress += 1;
 		
