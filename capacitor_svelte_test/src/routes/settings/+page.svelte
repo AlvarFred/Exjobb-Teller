@@ -2,6 +2,7 @@
 	import { Block, BlockTitle, Button, Navbar, NavbarBackLink, Page, Toast, Toggle } from 'konsta/svelte';
     import { Preferences } from '@capacitor/preferences';
     import {rescheduleNotification, disableNotifications} from '$lib/notifications.js'
+    import {exportStats} from '$lib/exportStats.js'
 
     export let data;
     let notificationsEnabled = data.enabled === "true";
@@ -67,6 +68,14 @@
         
            
     </Block>
+    
+    <BlockTitle class="mx-4"> Export </BlockTitle>
+    <Block class="flex w-[100vw]">
+        <Button class="w-[20vw] mx-4" onClick={() => exportStats()}>
+            Export logs
+        </Button>
+    </Block> 
+
     <Block class="absolute bottom-0 flex justify-end w-[100vw]">
         <Button class="w-[20vw]" onClick={save}>Save</Button>
     </Block>

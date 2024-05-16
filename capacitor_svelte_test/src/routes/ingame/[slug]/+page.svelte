@@ -34,7 +34,7 @@
 	let sentenceComplete = false;
     let sentenceFailed = false;
     let userActivatedMic = false;
-    let exitListPrompt = false;
+    let exitPrompt = false;
     $: cardAnimation = sentenceFailed ? 'animate-shake' : sentenceComplete ? 'animate-fade' : ''
     $: micAnimation = listening ? 'animate-mic-pulse bg-red-600' : (userActivatedMic && !listening) ? 'animate-mic-retract' : ''
 	$: imageSrc = done ? data.list[progress - 1].img :  data.list[progress].img 
@@ -91,8 +91,10 @@
             })
 			
             console.log("###################", jsonData)
-            logData(jsonData)
-            
+
+            // Log data
+            logData(jsonData, 'data.json')
+                        
 			if (wer > allowedWER) {
                 // Fail
 				console.log('Failed: WER = ', wer, ' > allowed = ', allowedWER);
@@ -139,23 +141,31 @@
 		sentenceComplete = false;
 	}
 
+    const triggerExitPrompt = () => {
+        // If list is completed, no need to show prompt as all data has been saved
+        if (done){
+            history.back();
+        }
+        exitPrompt = true;
+    }
+
 </script>
 
 <Page class="bg-white z-0">
 	<Navbar transparent>
-		<NavbarBackLink class="" style="padding: 20px;" slot="left" text="Back" onClick={() => exitListPrompt = true} />
+		<NavbarBackLink class="" style="padding: 20px;" slot="left" text="Back" onClick={triggerExitPrompt} />
 	</Navbar>
 	
     <img alt="background showing nature" src={imageSrc} class="background-image {sentenceComplete ? 'animate' : ''}" on:click={next}/>
 	
-    <Dialog opened={exitListPrompt} onBackdropClick={() => (exitListPrompt = false)}>
+    <Dialog opened={exitPrompt} onBackdropClick={() => (exitPrompt = false)}>
         <svelte:fragment slot="title">Do you want to exit?</svelte:fragment>
         All current progress will be lost.
         <svelte:fragment slot="buttons">
             <DialogButton onClick={() => history.back()}>
                 Yes
             </DialogButton>
-            <DialogButton strong onClick={() => exitListPrompt = false}>
+            <DialogButton strong onClick={() => exitPrompt = false}>
                 No
             </DialogButton>
         </svelte:fragment>
@@ -187,10 +197,10 @@
         
     {:else}
         <div class="h-[50vh] w-[100%] text-center  rounded-lg" in:fly={{delay: 100, duration: 2000, y: '100vh'}} out:fly={{delay: 0, duration: 1, y: '100vh'}}>
-                <Block class="bg-black bg-opacity-0 rounded-lg mx-[14px] mt-[15vh]">
-	    			<p class= "text-shadow text-5xl  text-white font-bold">Good Job!</p>
-	    			<p class= "text-shadow text-2xl text-white">{totalAffirmations} Affirmations Completed!</p>
-	    		</Block>
+            <Block class="bg-black bg-opacity-0 rounded-lg mx-[14px] mt-[15vh]">
+	    		<p class= "text-shadow text-5xl  text-white font-bold">Good Job!</p>
+	    		<p class= "text-shadow text-2xl text-white">{totalAffirmations} Affirmations Completed!</p>
+	    	</Block>
 	    </div>
 
 		<div in:fade={{delay:100, duration: 1500}} out:fade={{delay:0, duration: 1}}>
