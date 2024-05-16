@@ -1,6 +1,7 @@
 import { Preferences } from '@capacitor/preferences';
 import { LocalNotifications } from '@capacitor/local-notifications';
 import { scheduleNotification } from '$lib/notifications';
+import { dailyGoal } from '$lib/dailyGoal';
 
 export const prerender = false;
 export const ssr = false;
@@ -36,5 +37,11 @@ export async function load() {
            console.log("Scheduling of notification failed")
         }       
     }
-    //await disableNotifications()
+    const {savedGoal} = await Preferences.get({ key: "dailyGoal"});
+    if (!savedGoal){
+        await Preferences.set({key: "dailyGoal", value: "3"})
+        dailyGoal.set(3);
+        return
+    }
+    dailyGoal.set(parseInt(savedGoal));
 }
