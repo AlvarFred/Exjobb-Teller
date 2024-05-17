@@ -20,7 +20,6 @@
 	} from 'konsta/svelte';
 	import {logData} from '$lib/logData.js';
 	export let data;
-	console.log(data.list[0])
 
     const failAudio = new Audio(Fail_Sound);
     const successAudio = new Audio(success_sound);
@@ -28,7 +27,7 @@
 	const allowedWER = 0.3;
 	let speechInput = '';
 	let progress = 0;
-	let totalAffirmations = data.list.length;
+	let totalAffirmations = data.list.affirmation.length;
 	let done = false;
 	let listening = false;
 	let sentenceComplete = false;
@@ -37,7 +36,7 @@
     let exitPrompt = false;
     $: cardAnimation = sentenceFailed ? 'animate-shake' : sentenceComplete ? 'animate-fade' : ''
     $: micAnimation = listening ? 'animate-mic-pulse bg-red-600' : (userActivatedMic && !listening) ? 'animate-mic-retract' : ''
-	$: imageSrc = done ? data.list[progress - 1].img :  data.list[progress].img 
+	$: imageSrc = done ? data.list.img[progress - 1] : data.list.img[progress]
 
 	const startListening = async () => {
         
@@ -75,10 +74,10 @@
 			// Set input to the most probable match
 			speechInput = matches.matches[0];
             
-			console.log('###########################\ngot: ', speechInput, '\nwas: ', data.list[progress].affirmation)
+			console.log('###########################\ngot: ', speechInput, '\nwas: ', data.list.affirmation[progress])
 
 			// Calculate Word Error Rate
-            const wer = wordErrorRate(speechInput, data.list[progress].affirmation);
+            const wer = wordErrorRate(speechInput, data.list.affirmation[progress]);
 
 			// Log data
 			const status = wer < allowedWER;
@@ -86,7 +85,7 @@
                 "success": status, 
                 "wer": wer, 
                 "allowedWER": allowedWER, 
-                "original-sentence": data.list[progress].affirmation,
+                "original-sentence": data.list.affirmation[progress],
                 "received-sentence": speechInput
             })
 			
@@ -178,7 +177,7 @@
                 {#if done}
 	    		<p>Done</p>
                 {:else}
-	    		<p class="text-2xl">{data.list[progress].affirmation}</p>
+	    		<p class="text-2xl">{data.list.affirmation[progress]}</p>
                 {/if}
             </Card>
         </div>
@@ -226,6 +225,7 @@
 		top: 0;
 		filter: blur(8px);
  		-webkit-filter: blur(8px);
+        object-fit: cover;
 	}
 
 	.animate{

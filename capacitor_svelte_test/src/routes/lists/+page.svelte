@@ -9,18 +9,27 @@
         name: "Programming",
         path: "programming",
         completed: 0
-
+    },{
+        name: "Programming 2",
+        path: "programming2",
+        completed: 0
     },{
         name: "Tidy Home",
         path: "tidy_home",
         completed: 72
-
+    },{
+        name: "Tidy Home 2",
+        path: "tidy_home2",
+        completed: 0
     },{
         name: "Workout",
         path: "workout",
         completed: 8
-
-    },]
+    },{
+        name: "Workout 2",
+        path: "workout2",
+        completed: 0
+    }]
 
 
 </script>

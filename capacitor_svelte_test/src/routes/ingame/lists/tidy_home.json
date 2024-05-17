@@ -1,83 +1,35 @@
-[
-    {
-        "affirmation": "A tidy home brings me peace and joy.",
-        "img": ""
-    },
-    {
-        "affirmation": "I create space for positivity by decluttering regularly.",
-        "img": ""
-    },
-    {
-        "affirmation": "I cherish my home as a sanctuary for relaxation.",
-        "img": ""
-    },
-    {
-        "affirmation": "I take pride in maintaining a clean and organized space.",
-        "img": ""
-    },
-    {
-        "affirmation": "I find fulfillment in caring for my home with love.",
-        "img": ""
-    },
-    {
-        "affirmation": "A clutter-free home nurtures my well-being.",
-        "img": ""
-    },
-    {
-        "affirmation": "I enjoy the simplicity and beauty of an orderly space.",
-        "img": ""
-    },
-    {
-        "affirmation": "Every cleaning task contributes to a harmonious environment.",
-        "img": ""
-    },
-    {
-        "affirmation": "I am grateful for the abundance of blessings in my home.",
-        "img": ""
-    },
-    {
-        "affirmation": "I approach chores with a positive mindset, knowing they serve my well-being.",
-        "img": ""
-    },
-    {
-        "affirmation": "I celebrate each small achievement in keeping my home in order.",
-        "img": ""
-    },
-    {
-        "affirmation": "I choose items that bring joy and value into my home.",
-        "img": ""
-    },
-    {
-        "affirmation": "My home reflects my self-love and respect.",
-        "img": ""
-    },
-    {
-        "affirmation": "I find peace in the routine of caring for my home.",
-        "img": ""
-    },
-    {
-        "affirmation": "I release attachment to material possessions, finding true happiness in simplicity.",
-        "img": ""
-    },
-    {
-        "affirmation": "Caring for my home is an act of self-care.",
-        "img": ""
-    },
-    {
-        "affirmation": "I appreciate the support of loved ones in maintaining my home.",
-        "img": ""
-    },
-    {
-        "affirmation": "I trust in the process of keeping my home clean and organized.",
-        "img": ""
-    },
-    {
-        "affirmation": "I embrace the rhythm of daily chores with gratitude.",
-        "img": ""
-    },
-    {
-        "affirmation": "A well-kept home is a reflection of my inner peace and harmony.",
-        "img": ""
-    }
-
-]
+{
+	"img": [
+		"/images/nature.jpg",
+		"/images/nature2.jpg",
+		"/images/nature3.jpg",
+		"/images/nature4.jpg",
+		"/images/nature5.jpg",
+		"/images/nature6.jpg",
+		"/images/nature7.jpg",
+		"/images/nature8.jpg",
+		"/images/nature9.jpg",
+		"/images/nature10.jpg",
+		"/images/ocean_house.jpg",
+		"/images/ocean.jpg",
+		"/images/ocean2.jpg",
+		"/images/ocean3.jpg",
+		"/images/ocean4.jpg",
+		"/images/ocean5.jpg",
+		"/images/ocean6.jpg",
+		"/images/ocean7.jpg",
+		"/images/ocean8.jpg"
+	],
+	"affirmation": [
+		"A tidy home brings me peace and joy.",
+		"I create space for positivity by decluttering regularly.",
+		"I cherish my home as a sanctuary for relaxation.",
+		"I take pride in maintaining a clean and organized space.",
+		"I find fulfillment in caring for my home with love.",
+		"A clutter-free home nurtures my well-being.",
+		"I enjoy the simplicity and beauty of an orderly space.",
+		"Every cleaning task contributes to a harmonious environment.",
+		"I am grateful for the abundance of blessings in my home.",
+		"I approach chores with a positive mindset, knowing they serve my well-being."
+	]
+}
