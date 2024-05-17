@@ -27,10 +27,10 @@
         <CalenderStats weeks={data.weeks} today={data.weekday}/>
 
         <div class="w-full">
-            <Button a href="/ingame/{$defaultList}" class="k-color-main-green  max-w-[60vw] h-[6vh] mx-auto my-8 text-xl">
+            <Button a href="/ingame/{$defaultList}" class="k-color-primary-green  max-w-[60vw] h-[6vh] mx-auto my-8 text-xl">
                 Start
             </Button>
-            <Button a href="/lists"  outline class="k-color-main-green max-w-[60vw] h-[6vh] mx-auto mb-[64px]  text-xl">
+            <Button a href="/lists"  outline class="k-color-primary-green max-w-[60vw] h-[6vh] mx-auto mb-[64px]  text-xl">
                 Lists
             </Button>
         </div>

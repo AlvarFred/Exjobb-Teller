@@ -7,7 +7,7 @@
         const style = "font-mono font-normal w-[24px]"
 </script>
 
-<table class="w-[70vw] text-center bg-[#EEEEEE] border-spacing-3 border-separate rounded-lg">
+<table class="w-[70vw] text-center bg-surface border-spacing-3 border-separate rounded-lg">
     <thead>
         <tr  class="flex justify-between items-center">
             <th class={style}></th>

@@ -1,5 +1,7 @@
 <script>
 	import { Block, BlockTitle, Card, Navbar, NavbarBackLink, Page, Button } from "konsta/svelte";
+	import StarSvg from "../starSvg.svelte";
+    import {defaultList} from '$lib/defaultList';
 
     const lists = [{
         name: "Test list",
@@ -22,23 +24,32 @@
 
     },]
 
-
+    const setDefault = (list) => {
+        if($defaultList == list) return;
+        defaultList.set(list)
+    }
 </script>
 
 <Page>
     <Navbar transparent>
-		<NavbarBackLink slot="left" text="Back" onClick={() => window.location = '/'} />
+		<NavbarBackLink a href="/" slot="left" text="Back"  />
 	</Navbar>
-    <BlockTitle large class="text-black mt-[0px] mx-[10px]">Affirmation lists</BlockTitle>
+    <BlockTitle large class="k-color-primary-green mt-[0px] mx-[10px]">Affirmation lists</BlockTitle>
     <Block class="">
         {#each lists as list}
-               <Card raised class="">
+               <Card raised class="bg-surface">
                     <div class="flex flex-row justify-between">
                         <div>
                             <h2 class="text-lg">{list.name}</h2>
-                            <p class="text-xs">Completed {list.completed} times</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque hic labore dolores.  </p>
                         </div>
-                        <Button tonal a href="/ingame/{list.path}" class="w-[20%]">Play</Button>
+                        <div class="flex flex-col justify-between items-end">
+                            <button on:click={()=> setDefault(list.path)}> 
+                                <StarSvg completed={list.path == $defaultList} width=30 height=30/>
+                            </button>
+                            <Button  a href="/ingame/{list.path}" class=" k-color-primary-green ">Start</Button>
+
+                        </div>
                     </div>
                </Card>
         {/each } 

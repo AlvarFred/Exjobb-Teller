@@ -144,9 +144,6 @@
 
     const triggerExitPrompt = () => {
         // If list is completed, no need to show prompt as all data has been saved
-        if (done){
-			window.location = '/';
-        }
         exitPrompt = true;
     }
 
@@ -163,7 +160,7 @@
         <svelte:fragment slot="title">Do you want to exit?</svelte:fragment>
         All current progress will be lost.
         <svelte:fragment slot="buttons">
-            <DialogButton onClick={() => window.location = '/'}>
+            <DialogButton  a href="/">
                 Yes
             </DialogButton>
             <DialogButton strong onClick={() => exitPrompt = false}>

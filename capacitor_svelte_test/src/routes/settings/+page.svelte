@@ -52,7 +52,7 @@
 </script>
 <Page>
     <Navbar title="Settings">
-        <NavbarBackLink slot="left" text="Back" onClick={() => window.location = '/'} />
+        <NavbarBackLink  a href="/" slot="left" text="Back"/>
     </Navbar>
     <BlockTitle class="mx-4">Daily Notifications</BlockTitle>
     <Block class="flex items-end justify-between mx-4">
