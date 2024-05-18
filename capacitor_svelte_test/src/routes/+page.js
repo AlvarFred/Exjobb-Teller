@@ -1,7 +1,17 @@
 import { Preferences } from '@capacitor/preferences';
 import { getWeekNumber, weeksInYear, getWeekDay } from '$lib/week';
+import {defaultList} from '$lib/defaultList';
 
 export async function load() {
+	const list = (await Preferences.get({ key: "defaultList"})).value;
+    console.log("in layout", list)
+    if (!list){
+        await Preferences.set({key: "defaultList", value: "list1"})
+        defaultList.set("list1");
+        return
+    }
+    defaultList.set(list);
+	 
 	const today = new Date();
 	const year = today.getFullYear();
 	let weeks;

@@ -187,10 +187,10 @@
                     <img style="transform: scale(1.5);" alt="microphone" slot="icon" src={micIcon} />
                 </Fab>
 
-                <Button class="max-w-[24vw] h-[5vh] mx-auto my-16" onClick={step}>Skip</Button>
+                <Button class="max-w-[24vw] h-[5vh] mx-auto my-16 k-color-primary-green" onClick={step}>Skip</Button>
             </div>
 
-            <Progressbar class="rounded-full h-[1.2vh]" progress={progress / (totalAffirmations)} />
+            <Progressbar class="rounded-full h-[1.2vh] k-color-primary-green" progress={progress / (totalAffirmations)} />
         </Block>
         
     {:else}
@@ -203,8 +203,8 @@
 
 		<div in:fade={{delay:100, duration: 1500}} out:fade={{delay:0, duration: 1}}>
 			<Block class="bg-black bg-opacity-0 flex rounded-lg h-[15vh] my-[0px] justify-between items-center absolute bottom-0 w-[100%]">
-				<Button onClick={()=> reset()} class=" k-color-light-blue  drop-shadow-[0px_4px_8px_black] mx-[5px] w-[40vw] " >Go Again</Button>
-				<Button a href="/" class="drop-shadow-[0px_4px_8px_black] mx-[5px] w-[40vw]">Return Home</Button>
+				<Button  onClick={()=> reset()} class=" k-color-primary-green  drop-shadow-[0px_4px_8px_black] mx-[5px] w-[40vw] " >Go Again</Button>
+				<Button a href="/" class="drop-shadow-[0px_4px_8px_black] mx-[5px] w-[40vw] k-color-primary-green">Return Home</Button>
 			</Block>
 		</div>
 	{/if}

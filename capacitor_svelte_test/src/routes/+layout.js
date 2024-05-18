@@ -3,6 +3,7 @@ import { LocalNotifications } from '@capacitor/local-notifications';
 import { scheduleNotification } from '$lib/notifications';
 import { dailyGoal } from '$lib/dailyGoal';
 
+
 export const prerender = false;
 export const ssr = false;
 
@@ -11,6 +12,7 @@ const defaultMinute = 30;
 
 export async function load() {
     const {value} = await Preferences.get({ key: "notificationsEnabled"});
+
     if (value === null) {
         // Enable notifications if needed 
         const permission = await LocalNotifications.checkPermissions();
@@ -44,4 +46,5 @@ export async function load() {
         return
     }
     dailyGoal.set(parseInt(savedGoal));
+
 }
