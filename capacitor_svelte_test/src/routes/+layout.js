@@ -39,12 +39,17 @@ export async function load() {
            console.log("Scheduling of notification failed")
         }       
     }
-    const {savedGoal} = await Preferences.get({ key: "dailyGoal"});
+    try{
+         const {savedGoal} = await Preferences.get({ key: "dailyGoal"});
     if (!savedGoal){
         await Preferences.set({key: "dailyGoal", value: "3"})
         dailyGoal.set(3);
         return
     }
     dailyGoal.set(parseInt(savedGoal));
+    } catch(e){
+        console.log(e);
+    }
+   
 
 }
