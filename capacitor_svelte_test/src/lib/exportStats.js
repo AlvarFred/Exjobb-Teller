@@ -4,12 +4,12 @@ import { Share } from '@capacitor/share';
 export async function exportStats() {
     const file = await Filesystem.getUri({
         directory: Directory.Documents,
-        path: 'data.json'
+        path: 'data.txt'
     });
 
     const res = await Filesystem.stat({
-        directory: Directory.Data,
-        path: 'data.json'
+        directory: Directory.Documents,
+        path: 'data.txt'
     });
 
     console.log("##### Result: ", res.uri)

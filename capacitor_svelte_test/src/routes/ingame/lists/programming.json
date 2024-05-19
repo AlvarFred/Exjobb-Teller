@@ -1,82 +1,35 @@
-[
-    {
-        "affirmation": "I'm ready to dive into programming, one step at a time.",
-        "img": "/images/nature.jpg"
-    },
-    {
-        "affirmation": "Mistakes are part of the learning journey; they help me improve.",
-        "img": ""
-    },
-    {
-        "affirmation": "I'm curious and eager to grasp programming concepts.",
-        "img": ""
-    },
-    {
-        "affirmation": "Every little success encourages me to continue learning.",
-        "img": ""
-    },
-    {
-        "affirmation": "I'm not afraid to seek help when I need it; learning is a collaborative effort.",
-        "img": ""
-    },
-    {
-        "affirmation": "Fixing bugs teaches me valuable problem-solving skills.",
-        "img": ""
-    },
-    {
-        "affirmation": "I believe in my ability to learn and grow as a programmer.",
-        "img": ""
-    },
-    {
-        "affirmation": "Patience is key; I understand that learning takes time.",
-        "img": ""
-    },
-    {
-        "affirmation": "Regular practice leads to progress; I'm committed to it.",
-        "img": ""
-    },
-    {
-        "affirmation": "I'm excited about the endless possibilities programming offers.",
-        "img": ""
-    },
-    {
-        "affirmation": "I approach challenges with a positive attitude and determination.",
-        "img": ""
-    },
-    {
-        "affirmation": "Each line of code I write brings me closer to my goals.",
-        "img": ""
-    },
-    {
-        "affirmation": "I celebrate my achievements, no matter how small.",
-        "img": ""
-    },
-    {
-        "affirmation": "I'm open to exploring new programming languages and techniques.",
-        "img": ""
-    },
-    {
-        "affirmation": "Failure is not the end; it's a chance to learn and improve.",
-        "img": ""
-    },
-    {
-        "affirmation": "I trust in my ability to overcome obstacles in my coding journey.",
-        "img": ""
-    },
-    {
-        "affirmation": "I'm building a solid foundation for my future as a programmer.",
-        "img": ""
-    },
-    {
-        "affirmation": "Every moment spent learning programming is an investment in myself.",
-        "img": ""
-    },
-    {
-        "affirmation": "I'm grateful for the opportunity to learn and grow in programming.",
-        "img": ""
-    },
-    {
-        "affirmation": "With persistence and dedication, I can achieve anything in programming.",
-        "img": ""
-    }
-]
+{
+	"img": [
+		"/images/nature.jpg",
+		"/images/nature2.jpg",
+		"/images/nature3.jpg",
+		"/images/nature4.jpg",
+		"/images/nature5.jpg",
+		"/images/nature6.jpg",
+		"/images/nature7.jpg",
+		"/images/nature8.jpg",
+		"/images/nature9.jpg",
+		"/images/nature10.jpg",
+		"/images/ocean_house.jpg",
+		"/images/ocean.jpg",
+		"/images/ocean2.jpg",
+		"/images/ocean3.jpg",
+		"/images/ocean4.jpg",
+		"/images/ocean5.jpg",
+		"/images/ocean6.jpg",
+		"/images/ocean7.jpg",
+		"/images/ocean8.jpg"
+	],
+	"affirmation": [
+		"I'm ready to dive into programming, one step at a time.",
+		"Mistakes are part of the learning journey; they help me improve.",
+		"I'm curious and eager to grasp programming concepts.",
+		"Every little success encourages me to continue learning.",
+		"I'm not afraid to seek help when I need it; learning is a collaborative effort.",
+		"Fixing bugs teaches me valuable problem-solving skills.",
+		"I believe in my ability to learn and grow as a programmer.",
+		"Patience is key; I understand that learning takes time.",
+		"Regular practice leads to progress; I'm committed to it.",
+		"I'm excited about the endless possibilities programming offers."
+	]
+}

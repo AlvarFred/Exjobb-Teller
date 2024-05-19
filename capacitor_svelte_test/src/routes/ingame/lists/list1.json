@@ -1,14 +1,28 @@
-[
-    {
-        "affirmation": "The first. I am so good.",
-        "img": "/images/nature.jpg"
-    },
-    {
-        "affirmation": "The second affirmation, now i am supposed to say something good about myself",
-        "img": "/images/nature2.jpeg"
-    },
-    { 
-        "affirmation": "The third affirmation, this one is really hard", 
-        "img": "/images/nature.jpg"
-    }
-]
+{
+	"img": [
+		"/images/nature.jpg",
+		"/images/nature2.jpg",
+		"/images/nature3.jpg",
+		"/images/nature4.jpg",
+		"/images/nature5.jpg",
+		"/images/nature6.jpg",
+		"/images/nature7.jpg",
+		"/images/nature8.jpg",
+		"/images/nature9.jpg",
+		"/images/nature10.jpg",
+		"/images/ocean_house.jpg",
+		"/images/ocean.jpg",
+		"/images/ocean2.jpg",
+		"/images/ocean3.jpg",
+		"/images/ocean4.jpg",
+		"/images/ocean5.jpg",
+		"/images/ocean6.jpg",
+		"/images/ocean7.jpg",
+		"/images/ocean8.jpg"
+	],
+	"affirmation": [
+		"The first. I am so good.",
+		"The second affirmation, now i am supposed to say something good about myself",
+		"The third affirmation, this one is really hard"
+	]
+}

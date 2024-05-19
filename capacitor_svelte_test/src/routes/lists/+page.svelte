@@ -4,25 +4,33 @@
     import {defaultList, saveDefaultList} from '$lib/defaultList';
 
     const lists = [{
-        name: "Test list",
-        path: "list1",
-        description: "List of three sentences used for testing the application."
-    },{
         name: "Programming",
         path: "programming",
         description: "A list to improve your confidence and motivation in programming."
 
+    },
+    {
+        name: "Programming 2",
+        path: "programming2",
+        description: "A list to improve your confidence and motivation in programming."
     },{
         name: "Tidy Home",
         path: "tidy_home",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque hic labore dolores. "
+        description: "A list to motivate you to keep your home a clean place"
 
+    },{
+        name: "Tidy Home 2",
+        path: "tidy_home2",
+        description: "A list to motivate you to keep your home a clean place"
     },{
         name: "Workout",
         path: "workout",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque hic labore dolores. "
-
-    },]
+        description: "A list to motivate and bolster your physical health"
+    },{
+        name: "Workout 2",
+        path: "workout2",
+        description: "A list to motivate and bolster your physical health"
+    }]
 
     const setDefault = (list) => {
         if($defaultList == list) return;

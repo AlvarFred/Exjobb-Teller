@@ -1,7 +1,10 @@
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 
 export async function logData(dataToStore, file_to_write) {
+    const v = (await Filesystem.requestPermissions()).publicStorage
+    console.log("PERMISSION FOR FILESYS: ", v);
     try{
+
         let arrLogData = []
         let result = await Filesystem.readFile({
             path: file_to_write,
@@ -26,6 +29,7 @@ export async function logData(dataToStore, file_to_write) {
         });
     }
     catch (e) {
+
         // If file hasn't been created, create it and move on
         if(e == "Error: File does not exist"){
             await Filesystem.writeFile({
