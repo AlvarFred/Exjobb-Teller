@@ -92,7 +92,7 @@
             console.log("###################", jsonData)
 
             // Log data
-            logData(jsonData, 'data.json')
+            logData(jsonData, 'data.txt')
                         
 			if (wer > allowedWER) {
                 // Fail
