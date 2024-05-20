@@ -51,12 +51,12 @@
 
 </script>
 <Page>
-    <Navbar title="Settings">
+    <Navbar class="bg-surface" title="Settings">
         <NavbarBackLink  a href="/" slot="left" text="Back"/>
     </Navbar>
-    <BlockTitle class="mx-4">Daily Notifications</BlockTitle>
+    <BlockTitle class="mx-4 k-color-primary-green">Daily Notifications</BlockTitle>
     <Block class="flex items-end justify-between mx-4">
-        <Toggle class="justify-self-end" checked={notificationsEnabled} onChange={toggleNotifications}/>
+        <Toggle class="justify-self-end k-color-primary-green" checked={notificationsEnabled} onChange={toggleNotifications}/>
 
         <!-- <label class=" " for="Hour">When:</label> -->   
         <input 
@@ -67,15 +67,15 @@
         />           
     </Block>
     
-    <BlockTitle class="mx-4"> Export </BlockTitle>
+    <BlockTitle class="mx-4 k-color-primary-green"> Export </BlockTitle>
     <Block class="flex w-[100vw]">
-        <Button class="w-[20vw] mx-4" onClick={() => exportStats()}>
+        <Button class="w-[20vw] mx-4 k-color-primary-green" onClick={() => exportStats()}>
             Export logs
         </Button>
     </Block> 
 
     <Block class="absolute bottom-0 flex justify-end w-[100vw]">
-        <Button class="w-[20vw]" onClick={save}>Save</Button>
+        <Button class="w-[20vw] k-color-primary-green" onClick={save}>Save</Button>
     </Block>
     <Toast opened={toastOpen} class="text-center">
         {#if error}

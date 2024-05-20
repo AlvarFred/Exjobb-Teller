@@ -4,15 +4,15 @@ import {defaultList} from '$lib/defaultList';
 import {receivedStar} from '$lib/statistics.js';
 
 export async function load() {
-	const list = (await Preferences.get({ key: "defaultList"})).value;
-    console.log("in layout", list)
-    if (!list){
-        await Preferences.set({key: "defaultList", value: "list1"})
-        defaultList.set("list1");
-        return
-    }
-    defaultList.set(list);
-	 
+	const list = (await Preferences.get({ key: 'defaultList' })).value;
+	console.log('in layout', list);
+	if (!list) {
+		await Preferences.set({ key: 'defaultList', value: 'list1' });
+		defaultList.set('list1');
+	} else {
+		defaultList.set(list);
+	}
+
 	const today = new Date();
 	const year = today.getFullYear();
 	let weeks;
