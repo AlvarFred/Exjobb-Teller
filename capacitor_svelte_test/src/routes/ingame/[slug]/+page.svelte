@@ -36,6 +36,7 @@
     let sentenceFailed = false;
     let userActivatedMic = false;
     let exitPrompt = false;
+	let placeOnTop = false;
     //Check if user already recieved star for today
     let userReceivedStar = $receivedStar;
     $: cardAnimation = sentenceFailed ? 'animate-shake' : sentenceComplete ? 'animate-fade' : ''
@@ -113,6 +114,7 @@
 				console.log('Success: WER = ', wer, ' < allowed = ', allowedWER);
 				// TODO: Do some cool animation to show user speech recognition succeeded
 				sentenceComplete = true
+				setOnTop();
                 successAudio.play()
 				//step();
 			}
@@ -121,11 +123,16 @@
 			listening = false;
 		}
 	};
-
+	const setOnTop = () => {
+		setTimeout(() => {
+			placeOnTop = true;
+		}, 3500);
+	}
 	const step = () => {
 		if (progress == totalAffirmations - 1) {
 			done = true;
 			sentenceComplete = true;
+			placeOnTop = false;
 			increaseStats();
 		} 
 		progress += 1;
@@ -135,6 +142,7 @@
 	const next = () => {
 		if(!sentenceComplete) return;
 		sentenceComplete = false;
+		placeOnTop = false;
 		step();
 	}
 
@@ -143,6 +151,7 @@
 		done = false;
 		listening = false;
 		sentenceComplete = false;
+		placeOnTop = false;
 	}
 
     const triggerExitPrompt = () => {
@@ -157,7 +166,7 @@
 		<NavbarBackLink class="" style="padding: 20px;" slot="left" text="Back" onClick={triggerExitPrompt} />
 	</Navbar>
 	
-    <img alt="background showing nature" src={imageSrc} class="background-image {sentenceComplete ? 'animate' : ''}" on:click={next}/>
+    <img alt="background showing nature" src={imageSrc} class="background-image {sentenceComplete ? 'animate' : ''} {placeOnTop ? ' z-20' : 'z-[-1]'}" on:click={next}/>
 	
     <Dialog opened={exitPrompt} onBackdropClick={() => (exitPrompt = false)}>
         <svelte:fragment slot="title">Do you want to exit?</svelte:fragment>
@@ -183,7 +192,7 @@
             </Card>
         </div>
 
-        <Block class="w-full absolute bottom-0 ">
+        <Block class="w-full absolute bottom-0 z-10">
             <div class="{sentenceComplete ? 'animate-fade' : ''}">
 
                 <Fab class="{micAnimation} rounded-full w-[20vw] h-[20vw] mx-auto border-0" onClick={startListening}>
@@ -192,9 +201,10 @@
 
                 <Button class="max-w-[24vw] h-[5vh] mx-auto my-16 k-color-primary-green" onClick={step}>Skip</Button>
             </div>
-
-            <Progressbar class="rounded-full h-[1.2vh] k-color-primary-green" progress={progress / (totalAffirmations)} />
         </Block>
+		<div class="absolute bottom-0 w-full p-4 mb-8 z-30">
+			<Progressbar class="rounded-full h-[1.2vh] k-color-primary-green z-30" progress={progress / (totalAffirmations)} />
+		</div>
         
     {:else}
         <div class="flex justify-center w-[100%] mt-16" in:scale={{delay: 800, duration: 800, opacity: 1, start: 0}} out:scale={{delay: 0, duration: 1, opacity: 0}}>
@@ -236,7 +246,6 @@
 	}
 	.background-image{
 		position: absolute;
-		z-index: -1;
 		height: 100vh;
 		width: 100%;
 		top: 0;
@@ -246,7 +255,7 @@
 	}
 
 	.animate{
-		animation: blur-animation 2s ease-in forwards;
+		animation: blur-animation 3s ease-in forwards;
 	}
 	@keyframes blur-animation{
 		100% {
@@ -254,6 +263,7 @@
   			-webkit-filter: blur(0px);
 			/* z-index: 5; */
 		}
+		
 	}
 
 	.animate-fade{
