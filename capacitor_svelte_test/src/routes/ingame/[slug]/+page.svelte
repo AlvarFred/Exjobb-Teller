@@ -3,7 +3,7 @@
 	import {fade, fly, scale} from 'svelte/transition';
 	import micIcon from '$lib/assets/mic.svg';
 	import {wordErrorRate} from '$lib/wer.js';
-    import Fail_Sound from '$lib/audio/Fail_Sound.wav'
+    import fail_sound from '$lib/audio/fail_sound.mp3'
     import success_sound from '$lib/audio/success_sound.wav'
 	import {increaseStats, receivedStar} from '$lib/statistics.js'
 	import StarSvg from "./../../starSvg.svelte";
@@ -23,7 +23,7 @@
 	import {logData} from '$lib/logData.js';
 	export let data;
 
-    const failAudio = new Audio(Fail_Sound);
+    const failAudio = new Audio(fail_sound);
     const successAudio = new Audio(success_sound);
 
 	const allowedWER = 0.3;
@@ -37,8 +37,7 @@
     let userActivatedMic = false;
     let exitPrompt = false;
 	let placeOnTop = false;
-    //Check if user already recieved star for today
-    let userReceivedStar = $receivedStar;
+
     $: cardAnimation = sentenceFailed ? 'animate-shake' : sentenceComplete ? 'animate-fade' : ''
     $: micAnimation = listening ? 'animate-mic-pulse bg-red-600' : (userActivatedMic && !listening) ? 'animate-mic-retract' : ''
 	$: imageSrc = done ? data.list.img[progress - 1] : data.list.img[progress]
@@ -152,6 +151,7 @@
 		listening = false;
 		sentenceComplete = false;
 		placeOnTop = false;
+        receivedStar.set(true);
 	}
 
     const triggerExitPrompt = () => {
@@ -207,28 +207,20 @@
 		</div>
         
     {:else}
-        <div class="flex justify-center w-[100%] mt-16" in:scale={{delay: 800, duration: 800, opacity: 1, start: 0}} out:scale={{delay: 0, duration: 1, opacity: 0}}>
-            {#if !userReceivedStar}
+        <div class="flex justify-center w-[100%] mt-8" in:scale={{delay: 800, duration: 800, opacity: 1, start: 0}} out:scale={{delay: 0, duration: 1, opacity: 0}}>
+            {#if !$receivedStar}
                 <Confetti delay={[1500, 1200]} duration=2100 colorArray={["#ffffff"]} x={[-0.9, 0.1]} y={[-0.5, 1]}/>
-                <StarSvg completed={true} width={50} height={50} dropShadow={true}/>
+                <StarSvg completed={true} width={70} height={70} dropShadow={true}/>
                 <Confetti delay={[1500, 1200]} duration=2100 colorArray={["#ffffff"]} x={[-0.1, 0.9]} y={[-0.5, 1]}/>
             {/if}
         </div>
         
         <div class="h-[30vh] w-[100%] text-center rounded-lg" in:fly={{delay: 100, duration: 2000, y: '100vh'}} out:fly={{delay: 0, duration: 1, y: '100vh'}}>
-            <Block class="bg-black bg-opacity-0 rounded-lg mx-[14px] mt-[8vh]">
+            <Block class="bg-black bg-opacity-0 rounded-lg mx-[14px] mt-[6vh]">
 	    		<p class="text-shadow text-5xl text-white font-bold">Good Job!</p>
 	    		<p class="text-shadow text-2xl text-white">{totalAffirmations} Affirmations Completed!</p>
 	    	</Block>
 	    </div>
-
-        <!--
-            <div class="text-center" in:fade={{delay:1200, duration: 1000}}>
-                <Block class="bg-black bg-opacity-0 rounded-lg">
-                    <p class= "text-shadow text-xl text-white">You completed one list today!</p>
-                </Block>
-            </div>
-        -->
 
 		<div in:fade={{delay:100, duration: 1500}} out:fade={{delay:0, duration: 1}}>
 			<Block class="bg-black bg-opacity-0 flex rounded-lg h-[15vh] my-[0px] justify-between items-center absolute bottom-0 w-[100%]">
