@@ -18,8 +18,9 @@ module.exports = konstaConfig({
 			// primary: '#8BC34A',
 			'light-blue': '#92D6F8',
 			'brand-red': '#ff0000',
-			'surface': '#EEEEEE',
-			'primary-green': '#8BC34A'
+			surface: '#EEEEEE',
+			'primary-green': '#8BC34A',
+			background: '#ffffff'
 		}
 	},
 	theme: {
