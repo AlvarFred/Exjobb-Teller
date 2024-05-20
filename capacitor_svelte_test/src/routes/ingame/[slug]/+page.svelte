@@ -5,7 +5,7 @@
 	import {wordErrorRate} from '$lib/wer.js';
     import Fail_Sound from '$lib/audio/Fail_Sound.wav'
     import success_sound from '$lib/audio/success_sound.wav'
-	import {increaseStats, checkIfUserReceivedStar} from '$lib/statistics.js'
+	import {increaseStats, receivedStar} from '$lib/statistics.js'
 	import StarSvg from "./../../starSvg.svelte";
     import { Confetti } from 'svelte-confetti'
 	import {
@@ -37,7 +37,7 @@
     let userActivatedMic = false;
     let exitPrompt = false;
     //Check if user already recieved star for today
-    let userReceivedStar = checkIfUserReceivedStar();
+    let userReceivedStar = $receivedStar;
     $: cardAnimation = sentenceFailed ? 'animate-shake' : sentenceComplete ? 'animate-fade' : ''
     $: micAnimation = listening ? 'animate-mic-pulse bg-red-600' : (userActivatedMic && !listening) ? 'animate-mic-retract' : ''
 	$: imageSrc = done ? data.list.img[progress - 1] : data.list.img[progress]

@@ -1,6 +1,7 @@
 import { Preferences } from '@capacitor/preferences';
 import { getWeekNumber, weeksInYear, getWeekDay } from '$lib/week';
 import {defaultList} from '$lib/defaultList';
+import {receivedStar} from '$lib/statistics.js';
 
 export async function load() {
 	const list = (await Preferences.get({ key: "defaultList"})).value;
@@ -46,8 +47,9 @@ export async function load() {
 		weeks[currentWeekNo - 2],
 		weeks[currentWeekNo - 1]
 	];
-
-	return {
+    
+	receivedStar.set(pastFourWeeks[3].days[getWeekDay(today)] > 0)
+    return {
 		weeks: pastFourWeeks,
 		weekday: getWeekDay(today)
 	};
