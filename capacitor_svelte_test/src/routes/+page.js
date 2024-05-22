@@ -1,5 +1,5 @@
 import { Preferences } from '@capacitor/preferences';
-import { getWeekNumber, weeksInYear, getWeekDay } from '$lib/week';
+import { getWeekNumber, getWeekDay, generateWeekData } from '$lib/week';
 import {defaultList} from '$lib/defaultList';
 import {receivedStar} from '$lib/statistics.js';
 
@@ -21,16 +21,7 @@ export async function load() {
 		weeks = JSON.parse(weekdata);
 	} else {
 		//generate weeks for year
-		const nrOfWeeks = weeksInYear(today.getFullYear());
-		weeks = [];
-		let week;
-		for (let i = 0; i < nrOfWeeks; i++) {
-			week = {
-				number: i + 1,
-				days: [0, 0, 0, 0, 0, 0, 0]
-			};
-			weeks.push(week);
-		}
+		weeks = generateWeekData(today)
 		await Preferences.set({ key: `statistics${year}`, value: JSON.stringify(weeks) });
 	}
 

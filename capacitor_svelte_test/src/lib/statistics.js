@@ -1,6 +1,6 @@
 import { Preferences } from '@capacitor/preferences';
 import { writable } from "svelte/store";
-import { getWeekNumber, getWeekDay } from './week';
+import { getWeekNumber, getWeekDay, generateWeekData } from './week';
 
 export const receivedStar = writable(false); 
 
@@ -13,3 +13,15 @@ export const increaseStats = async () => {
 
 	await Preferences.set({ key: `statistics${year}`, value: JSON.stringify(weekdata) });
 };
+
+export const eraseData = async () => {
+	const today = new Date();
+	const year = today.getFullYear();
+	const weeks = generateWeekData(today);
+	try{
+		await Preferences.set({ key: `statistics${year}`, value: JSON.stringify(weeks)});
+	} catch (e) {
+		console.log(e);
+		throw e
+	}
+}

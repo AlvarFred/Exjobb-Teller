@@ -22,3 +22,17 @@ export const weeksInYear = (year) => {
 	let week = getWeekNumber(d);
 	return week == 1 ? 52 : week;
 };
+
+export const generateWeekData = (date) => {
+	const nrOfWeeks = weeksInYear(date.getFullYear());
+		let weeks = [];
+		let week;
+		for (let i = 0; i < nrOfWeeks; i++) {
+			week = {
+				number: i + 1,
+				days: [0, 0, 0, 0, 0, 0, 0]
+			};
+			weeks.push(week);
+		}
+		return weeks;
+}

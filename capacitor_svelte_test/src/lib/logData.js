@@ -47,3 +47,15 @@ export async function logData(dataToStore, file_to_write) {
         console.error(e)
     }
 };
+
+export const deleteLog = async (logFile) => {
+    try{
+        await Filesystem.deleteFile({
+            path: logFile,
+            directory: Directory.Documents
+        })
+    } catch (e) {
+        console.log(e);
+        throw e
+    }
+}
