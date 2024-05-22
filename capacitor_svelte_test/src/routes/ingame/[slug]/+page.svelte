@@ -140,6 +140,7 @@
 
 	const next = () => {
 		if(!sentenceComplete) return;
+        imageSrc = done ? data.list.img[progress - 1] : data.list.img[progress +1]
 		sentenceComplete = false;
 		placeOnTop = false;
 		step();
@@ -165,8 +166,17 @@
 	<Navbar transparent>
 		<NavbarBackLink class="" style="padding: 20px;" slot="left" text="Back" onClick={triggerExitPrompt} />
 	</Navbar>
-	
-    <img alt="background showing nature" src={imageSrc} class="background-image {sentenceComplete ? 'animate' : ''} {placeOnTop ? ' z-20' : 'z-[-1]'}" on:click={next}/>
+	{#each data.list.affirmation as _, i}
+        <img 
+            alt="background showing nature" 
+            src={data.list.img[i]} 
+            class="background-image 
+                {i == progress || i == progress - 1 ? '' : 'hidden'}
+                {sentenceComplete ? 'animate' : ''}
+                {placeOnTop ? ' z-20' : 'z-[-1]'}" 
+            on:click={next}/>
+
+    {/each}
 	
     <Dialog opened={exitPrompt} onBackdropClick={() => (exitPrompt = false)}>
         <svelte:fragment slot="title">Do you want to exit?</svelte:fragment>

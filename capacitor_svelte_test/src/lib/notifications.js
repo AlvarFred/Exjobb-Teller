@@ -8,6 +8,7 @@ export const scheduleNotification = async (hour, minute) => {
 				body: 'Remember to do your daily affirmations!',
 				id: 1,
 				schedule: {
+                    repeats: true,
 					allowWhileIdle: true,
 					on: {
 						hour: hour,

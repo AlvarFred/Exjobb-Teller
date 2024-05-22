@@ -7,8 +7,8 @@ export async function load() {
 	const list = (await Preferences.get({ key: 'defaultList' })).value;
 	console.log('in layout', list);
 	if (!list) {
-		await Preferences.set({ key: 'defaultList', value: 'list1' });
-		defaultList.set('list1');
+		await Preferences.set({ key: 'defaultList', value: 'tidy_home' });
+		defaultList.set('tidy_home');
 	} else {
 		defaultList.set(list);
 	}
