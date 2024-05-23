@@ -44,9 +44,8 @@
 
 	const startListening = async () => {
         
-        // If user clicks on the non-visible microphone button when image is being showed, send user to next affirmation
+        // Don't let user click on the microphone button when sentence is complete
         if(sentenceComplete){
-            next();
             return;
         }
 
@@ -122,11 +121,15 @@
 			listening = false;
 		}
 	};
+
+	// Put image on top so users can't press any of the buttons.
 	const setOnTop = () => {
 		setTimeout(() => {
 			placeOnTop = true;
 		}, 3500);
 	}
+
+	// Move user to next sentence
 	const step = () => {
 		if (progress == totalAffirmations - 1) {
 			done = true;
@@ -139,10 +142,16 @@
 	};
 
 	const next = () => {
-		if(!sentenceComplete) return;
-        imageSrc = done ? data.list.img[progress - 1] : data.list.img[progress +1]
+		// Can only proceed if user is done with sentence and if animation is done
+		if(!sentenceComplete || !placeOnTop) return;
 		sentenceComplete = false;
 		placeOnTop = false;
+		step();
+	}
+
+	const skip = ()=> {
+		// Do not skip if user is already done.
+		if(sentenceComplete) return;
 		step();
 	}
 
@@ -156,7 +165,6 @@
 	}
 
     const triggerExitPrompt = () => {
-        // If list is completed, no need to show prompt as all data has been saved
         exitPrompt = true;
     }
 
@@ -209,7 +217,7 @@
                     <img style="transform: scale(1.5);" alt="microphone" slot="icon" src={micIcon} />
                 </Fab>
 
-                <Button class="max-w-[24vw] h-[5vh] mx-auto my-16 k-color-primary-green" onClick={step}>Skip</Button>
+                <Button class="max-w-[24vw] h-[5vh] mx-auto my-16 k-color-primary-green" onClick={skip}>Skip</Button>
             </div>
         </Block>
 		<div class="absolute bottom-0 w-full p-4 mb-8 z-30">
